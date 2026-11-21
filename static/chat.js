@@ -226,5 +226,17 @@
   $('attach-photo').addEventListener('click',()=>fileUpload.click());$('remove-photo').addEventListener('click',clearPhoto);
   fileUpload.addEventListener('change',async()=>{const file=fileUpload.files[0];if(!file||isSending)return;clearPhoto();uploadError.textContent='';if(!['image/jpeg','image/png','image/webp'].includes(file.type)){uploadError.textContent='Выберите фотографию JPEG, PNG или WebP.';return;}if(file.size>5*1024*1024){uploadError.textContent='Фото слишком большое. Максимальный размер — 5 МБ.';return;}const epoch=conversationEpoch;isReadingPhoto=true;controls();try{const dataUrl=await new Promise((resolve,reject)=>{const reader=new FileReader();reader.onload=()=>resolve(reader.result);reader.onerror=()=>reject(Error('Не удалось прочитать фото.'));reader.readAsDataURL(file);});const image=new Image();image.src=dataUrl;await image.decode();if(epoch!==conversationEpoch)return;if(image.naturalWidth*image.naturalHeight>20000000)throw Error('Выберите фото до 20 мегапикселей.');selectedPhoto={dataUrl,base64:dataUrl.slice(dataUrl.indexOf(',')+1)};photoThumbnail.src=dataUrl;photoName.textContent=file.name;photoPreview.hidden=false;chatInput.focus();}catch(error){if(epoch===conversationEpoch){clearPhoto();uploadError.textContent=error.name==='EncodingError'?'Файл повреждён или не является фотографией.':error.message;}}finally{if(epoch===conversationEpoch){isReadingPhoto=false;controls();}}});
   sendBtn.addEventListener('click',()=>sendMessage(chatInput.value));chatInput.addEventListener('keydown',event=>{if(event.key==='Enter'&&!event.isComposing){event.preventDefault();sendMessage(chatInput.value);}});document.querySelectorAll('.quick-btn').forEach(button=>button.addEventListener('click',()=>sendMessage(button.dataset.q)));
+  const welcomeScreen=$('welcome-screen');
+  if(welcomeScreen){
+    const welcomeSeen='terramind-welcome-seen';
+    const canShowWelcome=!location.hash && ['/', '/index.html'].includes(location.pathname);
+    let welcomeWasSeen=false;
+    try{welcomeWasSeen=sessionStorage.getItem(welcomeSeen)==='1';}catch{}
+    const forceWelcome=new URLSearchParams(location.search).has('welcome');
+    if(canShowWelcome&&(!welcomeWasSeen||forceWelcome)){welcomeScreen.classList.remove('is-hidden');welcomeScreen.setAttribute('aria-hidden','false');}
+    const closeWelcome=()=>{welcomeScreen.classList.add('is-hidden');welcomeScreen.setAttribute('aria-hidden','true');try{sessionStorage.setItem(welcomeSeen,'1');}catch{}};
+    $('welcome-start').addEventListener('click',()=>{closeWelcome();window.scrollTo({top:0,behavior:'smooth'});});
+    $('welcome-login').addEventListener('click',()=>{closeWelcome();$('open-auth').click();});
+  }
   controls();checkIdentity(true);
 })();

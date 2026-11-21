@@ -41,6 +41,7 @@ html { scroll-padding-top: 24px; }
 .soil-detail-page a { color: var(--soil-green); text-underline-offset: 4px; }
 .detail-topbar { display: flex; align-items: center; justify-content: space-between; gap: 16px; max-width: 1280px; margin: auto; padding: 24px 40px; border-bottom: 1px solid var(--soil-line); }
 .detail-brand { font-size: 22px; font-weight: 700; letter-spacing: -.04em; text-decoration: none; line-height: 1.4; }
+.detail-brand::before { content: ""; display: inline-block; width: 34px; height: 34px; margin-right: 10px; background: url('/images/design/logo.png') center / cover no-repeat; border-radius: 10px; vertical-align: -8px; }
 .detail-brand span { display: block; font-size: 10px; font-weight: 400; letter-spacing: .08em; text-transform: uppercase; color: var(--soil-muted); }
 .detail-topbar nav { display: flex; gap: 28px; font-size: 13px; }
 .detail-topbar nav a { text-decoration: none; }
