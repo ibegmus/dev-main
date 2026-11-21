@@ -1,0 +1,265 @@
+{
+  "provenance": "Visitor texts and fields reconstructed from visible answers in live v3 evaluation on 2026-11-15. These are not raw classifier JSON, model outputs for new code, or expert soil labels. No credentials, photos, or private IDs.",
+  "cases": [
+    {
+      "case_id": 1,
+      "question": "Это Ленинградская область, Карельский перешеек. На месте сосновый лес. Привозили ли сюда землю, я не знаю. На фото сверху тёмная полоска, под ней светлая, а ниже рыжеватая земля. На ощупь не проверял, анализов нет.",
+      "visible_v3_updates": [
+        {
+          "field": "location",
+          "status": "known",
+          "quote": "Ленинградская область, Карельский перешеек"
+        },
+        {
+          "field": "landscape",
+          "status": "known",
+          "quote": "сосновый лес"
+        },
+        {
+          "field": "origin",
+          "status": "unknown",
+          "quote": "Привозили ли сюда землю, я не знаю"
+        },
+        {
+          "field": "white_layer",
+          "status": "known",
+          "quote": "под ней светлая"
+        },
+        {
+          "field": "lower_layer",
+          "status": "known",
+          "quote": "а ниже рыжеватая земля"
+        }
+      ]
+    },
+    {
+      "case_id": 2,
+      "question": "Фото из Канады, точнее место не знаю. Верхний слой тёмный и довольно толстый, дальше светлее. Землю в руках не проверял, анализов нет. Если чего-то на снимке не видно, я этого не знаю.",
+      "visible_v3_updates": [
+        {
+          "field": "location",
+          "status": "unknown",
+          "quote": "место не знаю"
+        },
+        {
+          "field": "organic_layer",
+          "status": "known",
+          "quote": "Верхний слой тёмный и довольно толстый"
+        },
+        {
+          "field": "lower_layer",
+          "status": "known",
+          "quote": "дальше светлее"
+        },
+        {
+          "field": "tests",
+          "status": "unknown",
+          "quote": "анализов нет"
+        }
+      ]
+    },
+    {
+      "case_id": 3,
+      "question": "Это район Ацби в Эфиопии. На снимке сверху трава, а сама земля серовато-коричневая, с комочками и камнями. Мокро ли там после дождя и привозили ли грунт, я не знаю. Ничего не измерял.",
+      "visible_v3_updates": [
+        {
+          "field": "location",
+          "status": "known",
+          "quote": "район Ацби в Эфиопии"
+        },
+        {
+          "field": "landscape",
+          "status": "known",
+          "quote": "сверху трава"
+        },
+        {
+          "field": "texture",
+          "status": "known",
+          "quote": "с комочками и камнями"
+        },
+        {
+          "field": "water",
+          "status": "unknown",
+          "quote": "не знаю"
+        },
+        {
+          "field": "origin",
+          "status": "unknown",
+          "quote": "не знаю"
+        }
+      ]
+    },
+    {
+      "case_id": 4,
+      "question": "Это Подольская возвышенность в Украине. На фото сверху трава, вверху земля темнее, ниже желтовато-бурая. На ощупь и воду не проверял, удобрения не вносил сам и историю участка не знаю. Анализов нет.",
+      "visible_v3_updates": [
+        {
+          "field": "location",
+          "status": "known",
+          "quote": "Подольская возвышенность в Украине"
+        },
+        {
+          "field": "organic_layer",
+          "status": "known",
+          "quote": "вверху земля темнее"
+        },
+        {
+          "field": "lower_layer",
+          "status": "known",
+          "quote": "ниже желтовато-бурая"
+        },
+        {
+          "field": "water",
+          "status": "unknown",
+          "quote": "воду не проверял"
+        }
+      ]
+    },
+    {
+      "case_id": 5,
+      "question": "Точное место не знаю. Сверху слой потемнее, а дальше сероватая земля, местами оттенки и пятна другие. Мокро ли там обычно, не знаю, пощупать этот образец не могу. Анализов нет.",
+      "visible_v3_updates": [
+        {
+          "field": "organic_layer",
+          "status": "known",
+          "quote": "Сверху слой потемнее"
+        },
+        {
+          "field": "lower_layer",
+          "status": "known",
+          "quote": "дальше сероватая земля"
+        },
+        {
+          "field": "water",
+          "status": "unknown",
+          "quote": "не знаю"
+        },
+        {
+          "field": "tests",
+          "status": "unknown",
+          "quote": "Анализов нет"
+        }
+      ]
+    },
+    {
+      "case_id": 6,
+      "question": "Место точно не знаю. На фото земля очень тёмная, много травы и корней, в выемке видна вода. Толщину точно измерить не могу, анализов нет. Никаких тестов руками пока не делал.",
+      "visible_v3_updates": [
+        {
+          "field": "organic_layer",
+          "status": "known",
+          "quote": "много травы и корней"
+        },
+        {
+          "field": "water",
+          "status": "known",
+          "quote": "в выемке видна вода"
+        },
+        {
+          "field": "tests",
+          "status": "unknown",
+          "quote": "анализов нет"
+        },
+        {
+          "field": "texture",
+          "status": "unknown",
+          "quote": "тестов руками пока не делал"
+        }
+      ]
+    },
+    {
+      "case_id": 7,
+      "question": "Известно только, что это Китай. На фото хорошо видна белая полоса, ниже земля рыжевато-бурая. Из чего состоит белая полоса, я не знаю. На вкус ничего не пробовал, pH и соль не измерял, грунт в руках не держал.",
+      "visible_v3_updates": [
+        {
+          "field": "location",
+          "status": "known",
+          "quote": "это Китай"
+        },
+        {
+          "field": "white_layer",
+          "status": "known",
+          "quote": "хорошо видна белая полоса"
+        },
+        {
+          "field": "lower_layer",
+          "status": "known",
+          "quote": "ниже земля рыжевато-бурая"
+        },
+        {
+          "field": "tests",
+          "status": "unknown",
+          "quote": "pH и соль не измерял"
+        }
+      ]
+    },
+    {
+      "case_id": 8,
+      "question": "Место неизвестно, у меня только это фото. Земля буроватая, видны вертикальные трещинки и плотные кусочки. Про влажность и растительность ничего достоверно не знаю, анализов нет. По одному цвету я не понимаю, что это.",
+      "visible_v3_updates": [
+        {
+          "field": "location",
+          "status": "unknown",
+          "quote": "Место неизвестно"
+        },
+        {
+          "field": "texture",
+          "status": "known",
+          "quote": "плотные кусочки"
+        },
+        {
+          "field": "soil_structure",
+          "status": "known",
+          "quote": "вертикальные трещинки"
+        },
+        {
+          "field": "tests",
+          "status": "unknown",
+          "quote": "анализов нет"
+        }
+      ]
+    },
+    {
+      "case_id": 9,
+      "question": "Этот образец из Нидерландов, точнее место не знаю. Сверху земля темнее, ниже светлее и желтоватая. Песчинки на ощупь не проверял, pH неизвестен, про привозной грунт тоже сказать не могу.",
+      "visible_v3_updates": [
+        {
+          "field": "location",
+          "status": "known",
+          "quote": "из Нидерландов"
+        },
+        {
+          "field": "organic_layer",
+          "status": "known",
+          "quote": "Сверху земля темнее"
+        },
+        {
+          "field": "lower_layer",
+          "status": "known",
+          "quote": "ниже светлее и желтоватая"
+        },
+        {
+          "field": "texture",
+          "status": "unknown",
+          "quote": "Песчинки на ощупь не проверял"
+        },
+        {
+          "field": "tests",
+          "status": "unknown",
+          "quote": "pH неизвестен"
+        }
+      ]
+    },
+    {
+      "case_id": 10,
+      "question": "Это Намибия, точное место не знаю. На фото земля рыжеватая, довольно ровная по цвету, сверху сухая трава и корни. Грунт в руках не проверял и ничего не измерял. Что можно предположить без этих данных?",
+      "visible_v3_updates": [
+        {
+          "field": "location",
+          "status": "known",
+          "quote": "Намибия"
+        }
+      ]
+    }
+  ]
+}

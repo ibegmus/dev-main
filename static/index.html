@@ -1,0 +1,1181 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TerraMind - Музей Почвоведения</title>
+  <style>
+    @font-face {
+      font-family: 'Geoform';
+      src: url('fonts/Geoform-Regular.ttf') format('truetype');
+      font-weight: 400;
+      font-style: normal;
+    }
+    
+    @font-face {
+      font-family: 'Geoform';
+      src: url('fonts/Geoform-Bold.ttf') format('truetype');
+      font-weight: 700;
+      font-style: normal;
+    }
+    
+    @font-face {
+      font-family: 'Kazaka';
+      src: url('fonts/IndiKazaka4F.ttf') format('truetype');
+      font-weight: 400;
+      font-style: normal;
+    }
+    
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
+    body {
+      font-family: 'Geoform', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #fafafa;
+      color: #2d3436;
+      display: flex;
+      min-height: 100vh;
+    }
+    
+    .mobile-shell, .mobile-memory-toggle, #mobile-chats-toggle { display: none; }
+
+    .sidebar {
+      width: 260px;
+      background: white;
+      padding: 40px 24px;
+      position: fixed;
+      height: 100vh;
+      border-right: 1px solid #f0f0f0;
+      overflow-y: auto;
+      z-index: 100;
+      transition: transform 0.3s ease;
+    }
+    
+    .sidebar.hidden {
+      transform: translateX(-100%);
+    }
+    
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 50px;
+    }
+    
+    .logo-icon {
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, #5a8f7b, #7fb069);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .logo-icon svg {
+      width: 24px;
+      height: 24px;
+      fill: white;
+    }
+    
+    .logo-text {
+      font-family: 'Kazaka', sans-serif;
+      font-size: 22px;
+      color: #2d3436;
+    }
+    
+    .nav-menu {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 14px 18px;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-size: 15px;
+      color: #636e72;
+    }
+    
+    .nav-item:hover {
+      background: #f8f9fa;
+      color: #2d3436;
+    }
+    
+    .nav-item.active {
+      background: #f0f7f4;
+      color: #2d3436;
+    }
+    
+    .nav-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: #f5f5f5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .nav-icon svg {
+      width: 18px;
+      height: 18px;
+      stroke: #636e72;
+      fill: none;
+      stroke-width: 2;
+    }
+    
+    .nav-item.active .nav-icon {
+      background: #5a8f7b;
+    }
+    
+    .nav-item.active .nav-icon svg {
+      stroke: white;
+    }
+    
+    .burger-menu {
+      display: none;
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      z-index: 101;
+      width: 44px;
+      height: 44px;
+      background: white;
+      border: 1px solid #f0f0f0;
+      border-radius: 12px;
+      cursor: pointer;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+    }
+    
+    .burger-menu span {
+      width: 20px;
+      height: 2px;
+      background: #2d3436;
+      transition: all 0.3s;
+    }
+    
+    .overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
+      z-index: 99;
+    }
+    
+    .main-content {
+      margin-left: 260px;
+      flex: 1;
+      padding: 40px 50px;
+    }
+    
+    .header {
+      margin-bottom: 40px;
+    }
+    
+    .header h1 {
+      font-family: 'Kazaka', sans-serif;
+      font-size: 36px;
+      color: #2d3436;
+      margin-bottom: 8px;
+    }
+    
+    .header p {
+      font-size: 16px;
+      color: #636e72;
+    }
+    
+    .queue-banner {
+      background: white;
+      border: 1px solid #f0f0f0;
+      border-radius: 16px;
+      padding: 20px 24px;
+      margin-bottom: 40px;
+      display: none;
+      align-items: center;
+      gap: 16px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+    }
+    
+    .queue-banner.active {
+      display: flex;
+    }
+    
+    .queue-icon {
+      width: 48px;
+      height: 48px;
+      background: #fff9e6;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    
+    .queue-icon svg {
+      width: 24px;
+      height: 24px;
+      stroke: #ffc107;
+      fill: none;
+      stroke-width: 2;
+    }
+    
+    .queue-content {
+      flex: 1;
+    }
+    
+    .queue-content h3 {
+      font-size: 15px;
+      margin-bottom: 4px;
+      color: #2d3436;
+    }
+    
+    .queue-content p {
+      font-size: 14px;
+      color: #636e72;
+    }
+    
+    .queue-timer {
+      font-family: 'Kazaka', sans-serif;
+      font-size: 24px;
+      color: #5a8f7b;
+      margin-left: 16px;
+    }
+    
+    .upload-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      min-height: 48px;
+      padding: 12px 16px;
+      background: #edf5f0;
+      color: #45715f;
+      border: none;
+      border-radius: 12px;
+      font-size: 14px;
+      font-family: 'Geoform', sans-serif;
+      cursor: pointer;
+      transition: all 0.2s;
+      flex-shrink: 0;
+    }
+    
+    .upload-btn:hover:not(:disabled) {
+      background: #deece3;
+      color: #315b49;
+    }
+    
+    .upload-btn svg {
+      width: 18px;
+      height: 18px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .upload-hint {
+      margin-top: 12px;
+      color: #636e72;
+      font-size: 12px;
+      line-height: 1.6;
+    }
+
+    .photo-preview {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+      padding: 12px;
+      background: #f0f7f4;
+      border-radius: 12px;
+    }
+
+    .photo-preview[hidden] { display: none; }
+
+    .photo-preview img {
+      width: 72px;
+      height: 72px;
+      object-fit: cover;
+      border-radius: 8px;
+      flex-shrink: 0;
+    }
+
+    .photo-preview span {
+      flex: 1;
+      min-width: 0;
+      overflow-wrap: anywhere;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .photo-preview button {
+      margin-left: auto;
+      padding: 8px 12px;
+      border: 1px solid #5a8f7b;
+      background: white;
+      border-radius: 8px;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    .upload-error { color: #a52a2a; margin-top: 8px; }
+    .upload-error:empty { display: none; }
+
+    .message img {
+      display: block;
+      max-width: 100%;
+      max-height: 220px;
+      border-radius: 8px;
+      margin-top: 8px;
+    }
+
+    button:disabled {
+      opacity: 0.6;
+      cursor: wait;
+    }
+    
+    .chat-section {
+      background: white;
+      border-radius: 24px;
+      padding: 32px;
+      border: 1px solid #f0f0f0;
+    }
+    
+    .chat-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid #f5f5f5;
+    }
+    
+    .chat-header h2 {
+      font-family: 'Kazaka', sans-serif;
+      font-size: 22px;
+      color: #2d3436;
+    }
+    
+    .chat-header { gap: 16px; flex-wrap: wrap; }
+    .chat-header-actions { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+    .new-chat-btn { padding: 9px 14px; border: 1px solid #bdd3c7; border-radius: 10px; background: #f4f8f5; color: #315b49; cursor: pointer; font: inherit; font-size: 13px; }
+    .new-chat-btn:hover { background: #e6f0e9; }
+    .chat-memory-note { margin: -8px 0 18px; color: #636e72; font-size: 12px; line-height: 1.6; }
+    .chat-notice { color: #735620; font-size: 13px; line-height: 1.6; margin-bottom: 12px; }
+    .chat-notice:empty { display: none; }
+    .chat-privacy, .site-footer { font-size: 12px; line-height: 1.6; color: #636e72; }
+    .chat-privacy { margin-top: 12px; }
+    .site-footer { margin: 24px 0 0; }
+    .chat-privacy a, .site-footer a { color: #315b49; text-underline-offset: 3px; }
+
+    .chat-status {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      color: #5a8f7b;
+    }
+    
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      background: #5a8f7b;
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+    
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+    
+    .chat-window {
+      height: 420px;
+      overflow-y: auto;
+      margin-bottom: 24px;
+      padding: 24px;
+      background: #fafafa;
+      border-radius: 16px;
+    }
+    
+    .message {
+      margin-bottom: 16px;
+      padding: 16px 20px;
+      border-radius: 16px;
+      max-width: 70%;
+      line-height: 1.6;
+      font-size: 14px;
+    }
+    
+    .message.user {
+      background: #5a8f7b;
+      color: white;
+      margin-left: auto;
+    }
+    
+    .message.ai {
+      background: white;
+      color: #2d3436;
+      border: 1px solid #f0f0f0;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+    }
+
+    .message .source-link {
+      color: #45715f;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      overflow-wrap: anywhere;
+    }
+    
+    .input-area {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px;
+      border: 1px solid #dfe9e4;
+      border-radius: 16px;
+      background: #fafcfb;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    
+    .input-area:focus-within {
+      border-color: #5a8f7b;
+      box-shadow: 0 0 0 3px rgba(90,143,123,0.1);
+    }
+
+    .input-area input[type="text"] {
+      flex: 1;
+      min-width: 0;
+      padding: 14px 12px;
+      border: none;
+      font-size: 14px;
+      background: transparent;
+      font-family: 'Geoform', sans-serif;
+    }
+    
+    .input-area input[type="text"]:focus {
+      outline: none;
+    }
+
+    .input-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+
+    #send-btn {
+      min-height: 48px;
+      padding: 12px 24px;
+      background: #5a8f7b;
+      color: white;
+      border: none;
+      border-radius: 12px;
+      font-size: 14px;
+      font-family: 'Geoform', sans-serif;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    
+    #send-btn:hover:not(:disabled) {
+      background: #4a7a68;
+    }
+
+    .input-actions button:focus-visible {
+      outline: 2px solid #45715f;
+      outline-offset: 3px;
+    }
+
+    .chat-composer { margin-bottom: 20px; }
+    
+    .quick-questions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    
+    .quick-btn {
+      padding: 10px 18px;
+      background: #f5f5f5;
+      border: none;
+      border-radius: 20px;
+      font-size: 13px;
+      font-family: 'Geoform', sans-serif;
+      cursor: pointer;
+      transition: all 0.2s;
+      color: #2d3436;
+    }
+    
+    .quick-btn:hover {
+      background: #5a8f7b;
+      color: white;
+    }
+    
+    @media (max-width: 1024px) {
+      .sidebar {
+        width: 220px;
+        padding: 30px 16px;
+      }
+      
+      .main-content {
+        margin-left: 220px;
+        padding: 30px;
+      }
+      
+      .catalog-grid {
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .burger-menu {
+        display: flex;
+      }
+      
+      .sidebar {
+        width: 280px;
+        transform: translateX(-100%);
+      }
+      
+      .sidebar.visible {
+        transform: translateX(0);
+      }
+      
+      .overlay.active {
+        display: block;
+      }
+      
+      .main-content {
+        margin-left: 0;
+        padding: 80px 20px 20px;
+      }
+      
+      .header h1 {
+        font-size: 28px;
+      }
+      
+      .catalog-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .chat-window {
+        height: 300px;
+      }
+      
+      .message {
+        max-width: 85%;
+      }
+      
+      .input-area {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      
+      .input-actions {
+        justify-content: space-between;
+        width: 100%;
+      }
+      
+      .queue-banner {
+        flex-direction: column;
+        text-align: center;
+      }
+      
+      .queue-timer {
+        margin-left: 0;
+        margin-top: 12px;
+      }
+      
+      
+      
+      
+    }
+    
+    @media (max-width: 480px) {
+      .header h1 {
+        font-size: 24px;
+      }
+      
+      .section-title {
+        font-size: 20px;
+      }
+      
+      .chat-section {
+        padding: 20px;
+      }
+
+      .photo-preview img {
+        width: 48px;
+        height: 48px;
+      }
+
+      .photo-preview button {
+        padding: 8px;
+        font-size: 12px;
+      }
+      
+      .quick-questions {
+        flex-direction: column;
+      }
+      
+      .quick-btn {
+        width: 100%;
+      }
+    }
+  </style>
+  <script src="/themes.js?v=20261106a"></script>
+  <link rel="stylesheet" href="/catalog.css?v=20261106a">
+  <link rel="stylesheet" href="/chat.css?v=20261106a">
+  <link rel="stylesheet" href="/design.css?v=20261106a">
+  <link rel="stylesheet" href="/mobile.css?v=20261106a">
+  <script src="/mobile.js?v=20261106a" defer></script>
+  <script src="/catalog.js?v=20261106a" defer></script>
+</head>
+<body>
+
+  <header class="mobile-shell" aria-label="TerraMind">
+    <div class="mobile-brandbar"><a class="mobile-brand" href="/">TerraMind<span>Почвы. Знания. Диалог.</span></a>
+    <button class="burger-menu" id="burger-menu" type="button" aria-label="Открыть меню" aria-expanded="false" aria-controls="sidebar"><span></span><span></span><span></span></button></div>
+    <nav class="mobile-section-nav" aria-label="Разделы сайта">
+      <a class="mobile-chat-link" href="#ai-chat">ИИ-чат</a>
+      <a href="#catalog">Коллекция <span>48</span></a>
+    </nav>
+  </header>
+
+  <div class="overlay" id="overlay"></div>
+
+  <div class="sidebar" id="sidebar">
+    <div class="logo">
+      <div class="logo-icon">
+        <svg viewBox="0 0 24 24">
+          <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+        </svg>
+      </div>
+      <div class="logo-text">TerraMind</div>
+    </div>
+    
+    <div class="nav-menu">
+      <a href="/#catalog" class="nav-item active">
+        <div class="nav-icon">
+          <svg viewBox="0 0 24 24">
+            <rect x="3" y="3" width="7" height="7"/>
+            <rect x="14" y="3" width="7" height="7"/>
+            <rect x="14" y="14" width="7" height="7"/>
+            <rect x="3" y="14" width="7" height="7"/>
+          </svg>
+        </div>
+        <span>Каталог почв</span>
+      </a>
+      <a href="/#ai-chat" class="nav-item">
+        <div class="nav-icon">
+          <svg viewBox="0 0 24 24">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+          </svg>
+        </div>
+        <span>ИИ-ассистент</span>
+      </a>
+      <a href="/privacy/" class="nav-item"><div class="nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 4 6v6c0 4 5 8 8 9 3-1 8-5 8-9V6l-8-3Z"/><path d="m8 12 3 3 5-6"/></svg></div><span>Политика данных</span></a>
+      <a href="/terms/" class="nav-item"><div class="nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h9l4 4v14H6V3Zm8 0v5h5M9 12h7M9 16h7"/></svg></div><span>Условия сервиса</span></a>
+    </div>
+  </div>
+
+  <div class="main-content">
+    <div class="header">
+      <div class="hero-copy"><p class="hero-eyebrow">TerraMind · цифровая коллекция</p>
+      <h1>У каждой почвы —<br>своя история.</h1>
+      <p>Рассмотрите музейные образцы, сравните их свойства<br class="hero-break"> и задайте свой вопрос ИИ-почвоведу.</p>
+      <a class="hero-action" href="#ai-chat">Спросить ИИ-почвоведа <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M5 19 19 5M5 5h14v14"/></svg></a></div>
+      <div class="hero-profile" aria-hidden="true"><span class="hero-profile-label">Жизнь начинается с почвы</span><span class="hero-profile-caption">Исследуйте то, что под поверхностью</span></div>
+    </div>
+    
+    <!-- SOIL_CATALOG_START -->
+<section class="catalog-section" id="catalog" aria-labelledby="catalog-heading">
+  <div class="catalog-heading"><div><p class="catalog-eyebrow">Коллекция музея</p>
+    <h2 id="catalog-heading">Почвы в деталях</h2><p>48 образцов · фотографии монолитов и музейных табличек</p></div>
+    <a class="catalog-download" href="/data/catalog.txt" download>Скачать описания ↓</a></div>
+  <details class="catalog-filter-panel" hidden open>
+    <summary>Найти образец <span>Название, место или группа</span></summary>
+  <div class="catalog-controls" hidden>
+    <label class="catalog-search">Поиск по коллекции<input id="catalog-search" type="search" placeholder="Название, место или год…" autocomplete="off"></label>
+    <label>Группа почв<select id="catalog-family"><option value="">Все группы</option><option value="Аллювиальные">Аллювиальные</option><option value="Болотные и глеевые">Болотные и глеевые</option><option value="Бурые лесные">Бурые лесные</option><option value="Каштановые">Каштановые</option><option value="Подзолистые">Подзолистые</option><option value="Пустынные и субтропические">Пустынные и субтропические</option><option value="Серые лесные">Серые лесные</option><option value="Солонцы и солончаки">Солонцы и солончаки</option><option value="Чернозёмы и луговые">Чернозёмы и луговые</option></select></label>
+    <button class="catalog-reset" type="button" id="catalog-reset">Сбросить</button>
+  </div>
+  </details>
+  <p class="catalog-mobile-hint">Листайте коллекцию <span aria-hidden="true">← →</span></p>
+  <p class="catalog-count" id="catalog-count" role="status" aria-live="polite">В коллекции 48 образцов</p>
+  <div class="catalog-grid" tabindex="0" role="region" aria-label="Карточки почвенных образцов"><a class="soil-card" href="/soils/001/" data-family="Подзолистые" data-search="001 Подзолистая типичная Подзолистые Монолит 1980 года. Серовский район. Подзолистая Типичная Тайга Промывной Морена, покровные суглинки A0–A1A2–A2–A2B–B–C 0,5–1,5 3–8 Ca, Mg, H 40–60 4,0–5,0 1980 Серовский район Не указано на табличке">
+  <div class="soil-image"><img src="/images/soils/001/monolith.jpg" alt="Монолит: Подзолистая типичная" width="256" height="1280" loading="lazy" decoding="async"><span class="specimen-number">001</span></div>
+  <div class="soil-content"><span class="soil-family">Подзолистые</span>
+    <h3>Подзолистая типичная</h3><p>Монолит 1980 года. Серовский район.</p>
+    <div class="soil-highlights"><span>Гумус <strong>0,5–1,5 %</strong></span><span>pH <strong>4,0–5,0</strong></span></div>
+    <span class="soil-open">Подробнее <span aria-hidden="true">→</span></span>
+  </div>
+</a><a class="soil-card" href="/soils/002/" data-family="Подзолистые" data-search="002 Дерново-подзолистая Подзолистые Монолит 1980 года. Н. Тагил, с. Покровское. Дерново-подзолистая Не указано на табличке Тайга южная Промывной Покровные суглинки A0–A1–A2–A2B–B–C 1,5–4,0 5–12 Ca, Mg, H 50–70 4,2–5,2 1980 Н. Тагил, с. Покровское Н. А. Иванов, К. В. Чамеев">
+  <div class="soil-image"><img src="/images/soils/002/monolith.jpg" alt="Монолит: Дерново-подзолистая" width="204" height="1280" loading="lazy" decoding="async"><span class="specimen-number">002</span></div>
+  <div class="soil-content"><span class="soil-family">Подзолистые</span>
+    <h3>Дерново-подзолистая</h3><p>Монолит 1980 года. Н. Тагил, с. Покровское.</p>
+    <div class="soil-highlights"><span>Гумус <strong>1,5–4,0 %</strong></span><span>pH <strong>4,2–5,2</strong></span></div>
+    <span class="soil-open">Подробнее <span aria-hidden="true">→</span></span>
+  </div>
+</a><a class="soil-card" href="/soils/003/" data-family="Болотные и глеевые" data-search="003 Болотная низинная торфяно-глеевая Болотные и глеевые Монолит 1970 года. Байкаловский район Свердловской области. Болотная низинная Торфяно-глеевая Тайга, лесостепь Не указано на табличке Осадочные отложения T–A1–(A1g)–Bg–Cg Не указано на табличке 80–200 Ca, Mg, H 30–80 4,5–5,2 1970 Байкаловский район Свердловской области Н. А. Иванов">
+  <div class="soil-image"><img src="/images/soils/003/monolith.jpg" alt="Монолит: Болотная низинная торфяно-глеевая" width="217" height="1279" loading="lazy" decoding="async"><span class="specimen-number">003</span></div>
+  <div class="soil-content"><span class="soil-family">Болотные и глеевые</span>
+    <h3>Болотная низинная торфяно-глеевая</h3><p>Монолит 1970 года. Байкаловский район Свердловской области.</p>
+    <div class="soil-highlights"><span>ЕКО <strong>80–200 мэкв/100 г</strong></span><span>pH <strong>4,5–5,2</strong></span></div>
+    <span class="soil-open">Подробнее <span aria-hidden="true">→</span></span>
+  </div>
+</a><a class="soil-card" href="/soils/004/" data-family="Болотные и глеевые" data-search="004 Болотная низинная торфяно-болотная Болотные и глеевые Монолит 1970 года. Белоярский район Свердловской области. Болотная низинная Торфяно-болотная Тайга, лесостепь Не указано на табличке Осадочные отложения T1–T2–B–C Не указано на табличке 80–200 Ca, Mg, H 60–90 4,8–5,4 1970 Белоярский район Свердловской области Н. А. Иванов">
+  <div class="soil-image"><img src="/images/soils/004/monolith.jpg" alt="Монолит: Болотная низинная торфяно-болотная" width="259" height="1279" loading="lazy" decoding="async"><span class="specimen-number">004</span></div>
+  <div class="soil-content"><span class="soil-family">Болотные и глеевые</span>
+    <h3>Болотная низинная торфяно-болотная</h3><p>Монолит 1970 года. Белоярский район Свердловской области.</p>
+    <div class="soil-highlights"><span>ЕКО <strong>80–200 мэкв/100 г</strong></span><span>pH <strong>4,8–5,4</strong></span></div>
+    <span class="soil-open">Подробнее <span aria-hidden="true">→</span></span>
+  </div>
+</a><a class="soil-card" href="/soils/005/" data-family="Болотные и глеевые" data-search="005 Болотная низинная торфянисто-глеевая Болотные и глеевые Монолит 1977 года. Белоярский район, Свердловская область. Болотная низинная Торфянисто-глеевая Тайга, лесостепь Не указано на табличке Осадочные отложения T1–T2–Bg–Cg Не указано на табличке 80–200 Ca, Mg, H 50–85 4,2–5,2 1977 Белоярский район, Свердловская область Н. А. Иванов, Ю. Л. Байкин">
+  <div class="soil-image"><img src="/images/soils/005/monolith.jpg" alt="Монолит: Болотная низинная торфянисто-глеевая" width="172" height="1280" loading="lazy" decoding="async"><span class="specimen-number">005</span></div>
+  <div class="soil-content"><span class="soil-family">Болотные и глеевые</span>
+    <h3>Болотная низинная торфянисто-глеевая</h3><p>Монолит 1977 года. Белоярский район, Свердловская область.</p>
+    <div class="soil-highlights"><span>ЕКО <strong>80–200 мэкв/100 г</strong></span><span>pH <strong>4,2–5,2</strong></span></div>
+    <span class="soil-open">Подробнее <span aria-hidden="true">→</span></span>
+  </div>
+</a><a class="soil-card" href="/soils/006/" data-family="Болотные и глеевые" data-search="006 Дерново-глеевая оподзоленная Болотные и глеевые Монолит 1980 года. С. Петрокаменское, Пригородный район Свердловской области. Дерново-глеевая Оподзоленная Тайга Промывной Делювиальные глины Aд–A–Bg–Ckg 3–10 15–40 Ca, Mg, H 70–90 4,8–5,6 1980 с. Петрокаменское, Пригородный район Свердловской области Н. А. Иванов, Ю. Л. Байкин">
+  <div class="soil-image"><img src="/images/soils/006/monolith.jpg" alt="Монолит: Дерново-глеевая оподзоленная" width="154" height="1280" loading="lazy" decoding="async"><span class="specimen-number">006</span></div>
+  <div class="soil-content"><span class="soil-family">Болотные и глеевые</span>
+    <h3>Дерново-глеевая оподзоленная</h3><p>Монолит 1980 года. С. Петрокаменское, Пригородный район Свердловской области.</p>
+    <div class="soil-highlights"><span>Гумус <strong>3–10 %</strong></span><span>pH <strong>4,8–5,6</strong></span></div>
+    <span class="soil-open">Подробнее <span aria-hidden="true">→</span></span>
+  </div>
+</a><a class="soil-card" href="/soils/007/" data-family="Чернозёмы и луговые" data-search="007 Лугово-чернозёмная выщелоченная Чернозёмы и луговые Монолит 1970 года. Богдановичский район Свердловской области. Лугово-чернозёмная Выщелоченная Лесостепь Периодически промывной Делювиальные отложения A–AB–Bg–Cg 8–16 35–55 Ca, Mg, H 80–90 5,2–5,8 1970 Богдановичский район Свердловской области Н. А. Иванов">
+  <div class="soil-image"><img src="/images/soils/007/monolith.jpg" alt="Монолит: Лугово-чернозёмная выщелоченная" width="249" height="1280" loading="lazy" decoding="async"><span class="specimen-number">007</span></div>
+  <div class="soil-content"><span class="soil-family">Чернозёмы и луговые</span>
+    <h3>Лугово-чернозёмная выщелоченная</h3><p>Монолит 1970 года. Богдановичский район Свердловской области.</p>
+    <div class="soil-highlights"><span>Гумус <strong>8–16 %</strong></span><span>pH <strong>5,2–5,8</strong></span></div>
+    <span class="soil-open">Подробнее <span aria-hidden="true">→</span></span>
+  </div>
+</a><a class="soil-card" href="/soils/008/" data-family="Серые лесные" data-search="008 Серая лесная Серые лесные Монолит 1970 года. Ирбитский район Свердловской области. Серая лесная Серая Лесостепь Периодически промывной Элювиально-делювиальные отложения A0–A1–A1A2–B–C 4–6 18–25 Ca, Mg, H 60–70 5,0–5,6 1970 Ирбитский район Свердловской области Н. А. Иванов">
+  <div class="soil-image"><img src="/images/soils/008/monolith.jpg" alt="Монолит: Серая лесная" width="243" height="1279" loading="lazy" decoding="async"><span class="specimen-number">008</span></div>
+  <div class="soil-content"><span class="soil-family">Серые лесные</span>
+    <h3>Серая лесная</h3><p>Монолит 1970 года. Ирбитский район Свердловской области.</p>
+    <div class="soil-highlights"><span>Гумус <strong>4–6 %</strong></span><span>pH <strong>5,0–5,6</strong></span></div>
+    <span class="soil-open">Подробнее <span aria-hidden="true">→</span></span>
+  </div>
+</a><a class="soil-card" href="/soils/009/" data-family="Серые лесные" data-search="009 Светло-серая лесная Серые лесные Монолит 1968 года. С. Чернокорово Богдановичского района Свердловской области. Серая лесная Светло-серая Лесостепь Периодически промывной Элювиально-делювиальные отложения A0–A1–A1A2–B–C 1,5–2,5 10–20 Ca, Mg, H 60–70 4,5–5,3 1968 с. Чернокорово Богдановичского района Свердловской области Н. А. Иванов">
+  <div class="soil-image"><img src="/images/soils/009/monolith.jpg" alt="Монолит: Светло-серая лесная" width="161" height="1280" loading="lazy" decoding="async"><span class="specimen-number">009</span></div>
+  <div class="soil-content"><span class="soil-family">Серые лесные</span>
+    <h3>Светло-серая лесная</h3><p>Монолит 1968 года. С. Чернокорово Богдановичского района Свердловской области.</p>
+    <div class="soil-highlights"><span>Гумус <strong>1,5–2,5 %</strong></span><span>pH <strong>4,5–5,3</strong></span></div>
+    <span class="soil-open">Подробнее <span aria-hidden="true">→</span></span>
+  </div>
+</a><a class="soil-card" href="/soils/010/" data-family="Серые лесные" data-search="010 Тёмно-серая лесная Серые лесные Монолит 1970 года. Ирбитский район Свердловской области. Серая лесная Тёмно-серая Лесостепь Периодически промывной Элювиально-делювиальные отложения A0–A1–A1A2–B–C 6–8 28–45 Ca, Mg, H 65–80 5,2–5,8 1970 Ирбитский район Свердловской области Н. А. Иванов">
+  <div class="soil-image"><img src="/images/soils/010/monolith.jpg" alt="Монолит: Тёмно-серая лесная" width="170" height="1280" loading="lazy" decoding="async"><span class="specimen-number">010</span></div>
+  <div class="soil-content"><span class="soil-family">Серые лесные</span>
+    <h3>Тёмно-серая лесная</h3><p>Монолит 1970 года. Ирбитский район Свердловской области.</p>
+    <div class="soil-highlights"><span>Гумус <strong>6–8 %</strong></span><span>pH <strong>5,2–5,8</strong></span></div>
+    <span class="soil-open">Подробнее <span aria-hidden="true">→</span></span>
+  </div>
+</a><a class="soil-card" href="/soils/011/" data-family="Чернозёмы и луговые" data-search="011 Чернозём оподзоленный Чернозёмы и луговые Монолит 1977 года. Пос. Красноармейский, Челябинская область. Чернозём Оподзоленный Лесостепь Периодически промывной Карбонатные суглинки A–AB–B–Ck 4–10 35–45 Ca, Mg, H 75–85 5,5–6,5 1977 пос. Красноармейский, Челябинская область Н. А. Иванов, Ю. Л. Байкин">
+  <div class="soil-image"><img src="/images/soils/011/monolith.jpg" alt="Монолит: Чернозём оподзоленный" width="230" height="1280" loading="lazy" decoding="async"><span class="specimen-number">011</span></div>
+  <div class="soil-content"><span class="soil-family">Чернозёмы и луговые</span>
+    <h3>Чернозём оподзоленный</h3><p>Монолит 1977 года. Пос. Красноармейский, Челябинская область.</p>
+    <div class="soil-highlights"><span>Гумус <strong>4–10 %</strong></span><span>pH <strong>5,5–6,5</strong></span></div>
+    <span class="soil-open">Подробнее <span aria-hidden="true">→</span></span>
+  </div>
+</a><a class="soil-card" href="/soils/012/" data-family="Чернозёмы и луговые" data-search="012 Чернозём выщелоченный Чернозёмы и луговые Монолит 1975 года. Кунашакский район Челябинской области. Чернозём Выщелоченный Лесостепь Периодически промывной Карбонатные суглинки A–AB–B–Ck 6–10 30–55 Ca, Mg, H 80–90 5,4–6,4 1975 Кунашакский район Челябинской области Н. А. Иванов, Ю. Л. Байкин">
+  <div class="soil-image"><img src="/images/soils/012/monolith.jpg" alt="Монолит: Чернозём выщелоченный" width="228" height="1279" loading="lazy" decoding="async"><span class="specimen-number">012</span></div>
+  <div class="soil-content"><span class="soil-family">Чернозёмы и луговые</span>
+    <h3>Чернозём выщелоченный</h3><p>Монолит 1975 года. Кунашакский район Челябинской области.</p>
+    <div class="soil-highlights"><span>Гумус <strong>6–10 %</strong></span><span>pH <strong>5,4–6,4</strong></span></div>
+    <span class="soil-open">Подробнее <span aria-hidden="true">→</span></span>
+  </div>
+</a><a class="soil-card" href="/soils/013/" data-family="Чернозёмы и луговые" data-search="013 Чернозём типичный Чернозёмы и луговые Монолит 1974 года. Увельский район, Челябинская область. Чернозём Типичный Лесостепь Непромывной Лёссы, карбонатные суглинки A–AB–Bk–Ck 7–11 45–70 Ca, Mg 100 6–7 1974 Увельский район, Челябинская область Н. А. Иванов">
+  <div class="soil-image"><img src="/images/soils/013/monolith.jpg" alt="Монолит: Чернозём типичный" width="163" height="1280" loading="lazy" decoding="async"><span class="specimen-number">013</span></div>
+  <div class="soil-content"><span class="soil-family">Чернозёмы и луговые</span>
+    <h3>Чернозём типичный</h3><p>Монолит 1974 года. Увельский район, Челябинская область.</p>
+    <div class="soil-highlights"><span>Гумус <strong>7–11 %</strong></span><span>pH <strong>6–7</strong></span></div>
+    <span class="soil-open">Подробнее <span aria-hidden="true">→</span></span>
+  </div>
+</a><a class="soil-card" href="/soils/014/" data-family="Серые лесные" data-search="014 Серая лесная глеевая (осолоделая) Серые лесные Монолит 1965 года. Омская область. Серая лесная глеевая Осолоделая Лесостепь Застойный Покровные суглинки A0–A1–A1A2–Bg–Cg 2–8 10–25 Ca, Mg, H 60–80 4,8–5,4 1965 Омская область Н. Д. Градобоев">
+  <div class="soil-image"><img src="/images/soils/014/monolith.jpg" alt="Монолит: Серая лесная глеевая (осолоделая)" width="187" height="1280" loading="lazy" decoding="async"><span class="specimen-number">014</span></div>
+  <div class="soil-content"><span class="soil-family">Серые лесные</span>
+    <h3>Серая лесная глеевая (осолоделая)</h3><p>Монолит 1965 года. Омская область.</p>
+    <div class="soil-highlights"><span>Гумус <strong>2–8 %</strong></span><span>pH <strong>4,8–5,4</strong></span></div>
+    <span class="soil-open">Подробнее <span aria-hidden="true">→</span></span>
+  </div>
+</a><a class="soil-card" href="/soils/015/" data-family="Солонцы и солончаки" data-search="015 Солонец гидроморфный осолодевающий Солонцы и солончаки Монолит 1965 года. Омская область. Солонец гидроморфный Осолодевающий Степь Непромывной Засоленные глины A0–A1–(A2)–B1–B2–BCk–Ck 3–8 20–50 Ca, Mg, Na 100 6–9 1965 Омская область Н. Д. Градобоев">
+  <div class="soil-image"><img src="/images/soils/015/monolith.jpg" alt="Монолит: Солонец гидроморфный осолодевающий" width="221" height="1279" loading="lazy" decoding="async"><span class="specimen-number">015</span></div>
+  <div class="soil-content"><span class="soil-family">Солонцы и солончаки</span>
+    <h3>Солонец гидроморфный осолодевающий</h3><p>Монолит 1965 года. Омская область.</p>
+    <div class="soil-highlights"><span>Гумус <strong>3–8 %</strong></span><span>pH <strong>6–9</strong></span></div>
+    <span class="soil-open">Подробнее <span aria-hidden="true">→</span></span>
+  </div>
+</a><a class="soil-card" href="/soils/016/" data-family="Солонцы и солончаки" data-search="016 Солонец лугово-степной глубокий Солонцы и солончаки Монолит 1981 года. Пос. Фершампенуаз Челябинской области. Солонец лугово-степной Глубокий Степь Непромывной Засоленные глины A0–A–B1–Bk–BCks–Cks 5–8 15–35 Ca, Mg, Na 100 7,2–7,6 1981 пос. Фершампенуаз Челябинской области Н. А. Иванов, Ю. Л. Байкин, В. А. Рочев; последняя подпись неразборчива">
+  <div class="soil-image"><img src="/images/soils/016/monolith.jpg" alt="Монолит: Солонец лугово-степной глубокий" width="206" height="1280" loading="lazy" decoding="async"><span class="specimen-number">016</span></div>
+  <div class="soil-content"><span class="soil-family">Солонцы и солончаки</span>
+    <h3>Солонец лугово-степной глубокий</h3><p>Монолит 1981 года. Пос. Фершампенуаз Челябинской области.</p>
+    <div class="soil-highlights"><span>Гумус <strong>5–8 %</strong></span><span>pH <strong>7,2–7,6</strong></span></div>
+    <span class="soil-open">Подробнее <span aria-hidden="true">→</span></span>
+  </div>
+</a><a class="soil-card" href="/soils/017/" data-family="Солонцы и солончаки" data-search="017 Солонец лугово-степной средний Солонцы и солончаки Монолит 1981 года. Пос. Фершампенуаз, Челябинская область. Солонец лугово-степной Средний Лесостепь, степь Непромывной Карбонатные глины, суглинки A0–A–B1–Bk–BCk–Ck 4–8 12–25 Ca, Mg, Na 100 7,2–8,0 1981 пос. Фершампенуаз, Челябинская область Н. А. Иванов, Ю. Л. Байкин, В. А. Рочев">
+  <div class="soil-image"><img src="/images/soils/017/monolith.jpg" alt="Монолит: Солонец лугово-степной средний" width="233" height="1279" loading="lazy" decoding="async"><span class="specimen-number">017</span></div>
+  <div class="soil-content"><span class="soil-family">Солонцы и солончаки</span>
+    <h3>Солонец лугово-степной средний</h3><p>Монолит 1981 года. Пос. Фершампенуаз, Челябинская область.</p>
+    <div class="soil-highlights"><span>Гумус <strong>4–8 %</strong></span><span>pH <strong>7,2–8,0</strong></span></div>
+    <span class="soil-open">Подробнее <span aria-hidden="true">→</span></span>
+  </div>
+</a><a class="soil-card" href="/soils/018/" data-family="Солонцы и солончаки" data-search="018 Солонец лугово-степной корковый Солонцы и солончаки Монолит 1981 года. Г. Троицк Челябинской области. Солонец лугово-степной Корковый Степь Непромывной Карбонатные глины, суглинки A0–A–B1–Bk–BCk–Ck 5–7 12–25 Ca, Mg, Na 100 7,4–9,0 1981 г. Троицк Челябинской области Н. А. Иванов, В. П. Егоров, В. А. Рочев">
+  <div class="soil-image"><img src="/images/soils/018/monolith.jpg" alt="Монолит: Солонец лугово-степной корковый" width="233" height="1280" loading="lazy" decoding="async"><span class="specimen-number">018</span></div>
+  <div class="soil-content"><span class="soil-family">Солонцы и солончаки</span>
+    <h3>Солонец лугово-степной корковый</h3><p>Монолит 1981 года. Г. Троицк Челябинской области.</p>
+    <div class="soil-highlights"><span>Гумус <strong>5–7 %</strong></span><span>pH <strong>7,4–9,0</strong></span></div>
+    <span class="soil-open">Подробнее <span aria-hidden="true">→</span></span>
+  </div>
+</a><a class="soil-card" href="/soils/019/" data-family="Чернозёмы и луговые" data-search="019 Чернозём южный Чернозёмы и луговые Монолит 1976 года. С. Андреевка Кокчетавской области, Казахстан. Чернозём Южный Сухая степь Непромывной Карбонатные глины A–AB–Bk–Cks 4–6 25–35 Ca, Mg, Na 100 6,5–7,2 1976 с. Андреевка Кокчетавской области, Казахстан Н. А. Иванов, В. П. Егоров, В. А. Рочев">
+  <div class="soil-image"><img src="/images/soils/019/monolith.jpg" alt="Монолит: Чернозём южный" width="270" height="1280" loading="lazy" decoding="async"><span class="specimen-number">019</span></div>
+  <div class="soil-content"><span class="soil-family">Чернозёмы и луговые</span>
+    <h3>Чернозём южный</h3><p>Монолит 1976 года. С. Андреевка Кокчетавской области, Казахстан.</p>
+    <div class="soil-highlights"><span>Гумус <strong>4–6 %</strong></span><span>pH <strong>6,5–7,2</strong></span></div>
+    <span class="soil-open">Подробнее <span aria-hidden="true">→</span></span>
+  </div>
+</a><a class="soil-card" href="/soils/020/" data-family="Каштановые" data-search="020 Тёмно-каштановая Каштановые Монолит 1976 года. Пос. Вишневский Целиноградской области. Каштановая Тёмно-каштановая Сухая степь Непромывной Карбонатные глины A0–A–Bk–Ck 4,5–5,5 30–35 Ca, Mg, Na 100 7,2–7,3 1976 пос. Вишневский Целиноградской области Н. А. Иванов, В. П. Егоров, В. А. Рочев">
+  <div class="soil-image"><img src="/images/soils/020/monolith.jpg" alt="Монолит: Тёмно-каштановая" width="190" height="1280" loading="lazy" decoding="async"><span class="specimen-number">020</span></div>
+  <div class="soil-content"><span class="soil-family">Каштановые</span>
+    <h3>Тёмно-каштановая</h3><p>Монолит 1976 года. Пос. Вишневский Целиноградской области.</p>
+    <div class="soil-highlights"><span>Гумус <strong>4,5–5,5 %</strong></span><span>pH <strong>7,2–7,3</strong></span></div>
+    <span class="soil-open">Подробнее <span aria-hidden="true">→</span></span>
+  </div>
+</a><a class="soil-card" href="/soils/021/" data-family="Каштановые" data-search="021 Каштановая типичная Каштановые Монолит 1976 года. Пос. Аксу-Аюлы Карагандинской области. Каштановая Типичная Сухая степь Выпотной Карбонатные глины A0–A–Bk–Ck 3–4 20–30 Ca, Mg, Na 100 7,2–7,3 1976 пос. Аксу-Аюлы Карагандинской области Н. А. Иванов, В. П. Егоров, В. А. Рочев">
+  <div class="soil-image"><img src="/images/soils/021/monolith.jpg" alt="Монолит: Каштановая типичная" width="234" height="1280" loading="lazy" decoding="async"><span class="specimen-number">021</span></div>
+  <div class="soil-content"><span class="soil-family">Каштановые</span>
+    <h3>Каштановая типичная</h3><p>Монолит 1976 года. Пос. Аксу-Аюлы Карагандинской области.</p>
+    <div class="soil-highlights"><span>Гумус <strong>3–4 %</strong></span><span>pH <strong>7,2–7,3</strong></span></div>
+    <span class="soil-open">Подробнее <span aria-hidden="true">→</span></span>
+  </div>
+</a><a class="soil-card" href="/soils/022/" data-family="Каштановые" data-search="022 Светло-каштановая Каштановые Монолит 1976 года. Пос. Аксу-Аюлы Карагандинской области. Каштановая Светло-каштановая Сухая степь Выпотной Карбонатные глины A0–A–Bk–Cks 2–3 15–20 Ca, Mg, Na 100 7,2–7,5 1976 пос. Аксу-Аюлы Карагандинской области Н. А. Иванов, В. П. Егоров, В. А. Рочев">
+  <div class="soil-image"><img src="/images/soils/022/monolith.jpg" alt="Монолит: Светло-каштановая" width="219" height="1280" loading="lazy" decoding="async"><span class="specimen-number">022</span></div>
+  <div class="soil-content"><span class="soil-family">Каштановые</span>
+    <h3>Светло-каштановая</h3><p>Монолит 1976 года. Пос. Аксу-Аюлы Карагандинской области.</p>
+    <div class="soil-highlights"><span>Гумус <strong>2–3 %</strong></span><span>pH <strong>7,2–7,5</strong></span></div>
+    <span class="soil-open">Подробнее <span aria-hidden="true">→</span></span>
+  </div>
+</a><a class="soil-card" href="/soils/023/" data-family="Солонцы и солончаки" data-search="023 Солончак гидроморфный типичный Солонцы и солончаки Монолит 1976 года. Побережье оз. Балхаш, Карагандинская область. Солончак гидроморфный Типичный Пустыня Выпотной Засоленные глины Aks–Bks–Cks 0,8–2,0 10–20 (50) Ca, Mg, Na 100 7,3–7,8 1976 побережье оз. Балхаш, Карагандинская область Н. А. Иванов, В. П. Егоров, В. А. Рочев">
+  <div class="soil-image"><img src="/images/soils/023/monolith.jpg" alt="Монолит: Солончак гидроморфный типичный" width="212" height="1280" loading="lazy" decoding="async"><span class="specimen-number">023</span></div>
+  <div class="soil-content"><span class="soil-family">Солонцы и солончаки</span>
+    <h3>Солончак гидроморфный типичный</h3><p>Монолит 1976 года. Побережье оз. Балхаш, Карагандинская область.</p>
+    <div class="soil-highlights"><span>Гумус <strong>0,8–2,0 %</strong></span><span>pH <strong>7,3–7,8</strong></span></div>
+    <span class="soil-open">Подробнее <span aria-hidden="true">→</span></span>
+  </div>
+</a><a class="soil-card" href="/soils/024/" data-family="Солонцы и солончаки" data-search="024 Солончак (поверхность) Солонцы и солончаки Монолит 1980 года. Древняя пойма р. Аму-Дарья, Каракалпакия. Солончак (поверхность) Не указано на табличке Пустыня Выпотной Засоленные Не указано на табличке 1,5–50 15–30 Ca, Mg, Na, K 100 7,2–9,0 1980 древняя пойма р. Аму-Дарья, Каракалпакия Н. А. Иванов, В. А. Рочев">
+  <div class="soil-image"><img src="/images/soils/024/monolith.jpg" alt="Монолит: Солончак (поверхность)" width="194" height="1280" loading="lazy" decoding="async"><span class="specimen-number">024</span></div>
+  <div class="soil-content"><span class="soil-family">Солонцы и солончаки</span>
+    <h3>Солончак (поверхность)</h3><p>Монолит 1980 года. Древняя пойма р. Аму-Дарья, Каракалпакия.</p>
+    <div class="soil-highlights"><span>Гумус <strong>1,5–50 %</strong></span><span>pH <strong>7,2–9,0</strong></span></div>
+    <span class="soil-open">Подробнее <span aria-hidden="true">→</span></span>
+  </div>
+</a><a class="soil-card" href="/soils/025/" data-family="Пустынные и субтропические" data-search="025 Серо-бурая пустынная Пустынные и субтропические Монолит 1976 года. Г. Акчатау, Карагандинская область. Серо-бурая Пустынная Пустыня Выпотной Засоленные глины Ak–Bk–Bks–Cks 1–2,5 12–22 Ca, Mg, Na 100 7,3–8,0 1976 г. Акчатау, Карагандинская область Н. А. Иванов, В. П. Егоров, В. А. Рочев">
+  <div class="soil-image"><img src="/images/soils/025/monolith.jpg" alt="Монолит: Серо-бурая пустынная" width="225" height="1280" loading="lazy" decoding="async"><span class="specimen-number">025</span></div>
+  <div class="soil-content"><span class="soil-family">Пустынные и субтропические</span>
+    <h3>Серо-бурая пустынная</h3><p>Монолит 1976 года. Г. Акчатау, Карагандинская область.</p>
+    <div class="soil-highlights"><span>Гумус <strong>1–2,5 %</strong></span><span>pH <strong>7,3–8,0</strong></span></div>
+    <span class="soil-open">Подробнее <span aria-hidden="true">→</span></span>
+  </div>
+</a><a class="soil-card" href="/soils/026/" data-family="Пустынные и субтропические" data-search="026 Серо-бурая солончаковатая Пустынные и субтропические Монолит 1976 года. Побережье оз. Балхаш, Карагандинская область. Серо-бурая Солончаковатая Пустыня Выпотной Засоленные глины Ak–Bk–Bks–Cks 0,6–1,0 7,5–9,0 Ca, Mg, Na 100 7,5–9,0 1976 побережье оз. Балхаш, Карагандинская область Н. А. Иванов, В. П. Егоров, В. А. Рочев">
+  <div class="soil-image"><img src="/images/soils/026/monolith.jpg" alt="Монолит: Серо-бурая солончаковатая" width="200" height="1280" loading="lazy" decoding="async"><span class="specimen-number">026</span></div>
+  <div class="soil-content"><span class="soil-family">Пустынные и субтропические</span>
+    <h3>Серо-бурая солончаковатая</h3><p>Монолит 1976 года. Побережье оз. Балхаш, Карагандинская область.</p>
+    <div class="soil-highlights"><span>Гумус <strong>0,6–1,0 %</strong></span><span>pH <strong>7,5–9,0</strong></span></div>
+    <span class="soil-open">Подробнее <span aria-hidden="true">→</span></span>
+  </div>
+</a><a class="soil-card" href="/soils/027/" data-family="Пустынные и субтропические" data-search="027 Серозём типичный Пустынные и субтропические Монолит 1974 года. Г. Кзыл-Орда, долина р. Аму-Дарья, поле риса. Серозём Типичный Субтропики сухие Выпотной Лёсс Ak–Bk–Ck 0,6–1,5 8–12 Ca, Mg 100 7,1–7,4 1974 г. Кзыл-Орда, долина р. Аму-Дарья, поле риса Н. А. Иванов, В. А. Рочев">
+  <div class="soil-image"><img src="/images/soils/027/monolith.jpg" alt="Монолит: Серозём типичный" width="207" height="1280" loading="lazy" decoding="async"><span class="specimen-number">027</span></div>
+  <div class="soil-content"><span class="soil-family">Пустынные и субтропические</span>
+    <h3>Серозём типичный</h3><p>Монолит 1974 года. Г. Кзыл-Орда, долина р. Аму-Дарья, поле риса.</p>
+    <div class="soil-highlights"><span>Гумус <strong>0,6–1,5 %</strong></span><span>pH <strong>7,1–7,4</strong></span></div>
+    <span class="soil-open">Подробнее <span aria-hidden="true">→</span></span>
+  </div>
+</a><a class="soil-card" href="/soils/028/" data-family="Пустынные и субтропические" data-search="028 Серозём орошаемый типичный Пустынные и субтропические Монолит 1976 года. Надпойменная терраса р. Чу, Джамбульская область. Серозём орошаемый Типичный Субтропики сухие Ирригационный Лёсс Ak–Bk–Ck 1,0–2,5 12–15 Ca, Mg 100 6,5–7,5 1976 надпойменная терраса р. Чу, Джамбульская область Н. А. Иванов, В. П. Егоров, В. А. Рочев">
+  <div class="soil-image"><img src="/images/soils/028/monolith.jpg" alt="Монолит: Серозём орошаемый типичный" width="193" height="1280" loading="lazy" decoding="async"><span class="specimen-number">028</span></div>
+  <div class="soil-content"><span class="soil-family">Пустынные и субтропические</span>
+    <h3>Серозём орошаемый типичный</h3><p>Монолит 1976 года. Надпойменная терраса р. Чу, Джамбульская область.</p>
+    <div class="soil-highlights"><span>Гумус <strong>1,0–2,5 %</strong></span><span>pH <strong>6,5–7,5</strong></span></div>
+    <span class="soil-open">Подробнее <span aria-hidden="true">→</span></span>
+  </div>
+</a><a class="soil-card" href="/soils/029/" data-family="Пустынные и субтропические" data-search="029 Краснозём неоподзоленный Пустынные и субтропические Монолит 1981 года. Г. Махарадзе, НИИ чая, Грузия. Краснозём Неоподзоленный Субтропики Промывной Красноцветная кора выветривания A0–A–B1–B2–C 3–4 15–25 Ca + Mg &lt; H + Al 20–50 4,2–5,0 1981 г. Махарадзе, НИИ чая, Грузия Н. А. Иванов, Ю. Л. Байкин, Т. Исмайлов">
+  <div class="soil-image"><img src="/images/soils/029/monolith.jpg" alt="Монолит: Краснозём неоподзоленный" width="204" height="1280" loading="lazy" decoding="async"><span class="specimen-number">029</span></div>
+  <div class="soil-content"><span class="soil-family">Пустынные и субтропические</span>
+    <h3>Краснозём неоподзоленный</h3><p>Монолит 1981 года. Г. Махарадзе, НИИ чая, Грузия.</p>
+    <div class="soil-highlights"><span>Гумус <strong>3–4 %</strong></span><span>pH <strong>4,2–5,0</strong></span></div>
+    <span class="soil-open">Подробнее <span aria-hidden="true">→</span></span>
+  </div>
+</a><a class="soil-card" href="/soils/030/" data-family="Бурые лесные" data-search="030 Бурая горно-лесная оподзоленная легкосуглинистая Бурые лесные Балл бонитета — 43. Агропочвенные районы: 5, 8. Бурая горно-лесная оподзоленная легкосуглинистая 5, 8 43 Не указано на листе Не указаны на листе">
+  <div class="soil-image"><img src="/images/soils/030/monolith.jpg" alt="Монолит: Бурая горно-лесная оподзоленная легкосуглинистая" width="228" height="1280" loading="lazy" decoding="async"><span class="specimen-number">030</span></div>
+  <div class="soil-content"><span class="soil-family">Бурые лесные</span>
+    <h3>Бурая горно-лесная оподзоленная легкосуглинистая</h3><p>Балл бонитета — 43. Агропочвенные районы: 5, 8.</p>
+    <div class="soil-highlights"><span>Бонитет <strong>43 баллов</strong></span><span>Профиль на листе <strong>до 100 см</strong></span></div>
+    <span class="soil-open">Подробнее <span aria-hidden="true">→</span></span>
+  </div>
+</a><a class="soil-card" href="/soils/031/" data-family="Подзолистые" data-search="031 Дерново-сильноподзолистая тяжелосуглинистая на делювиальных отложениях Подзолистые Балл бонитета — 50. Агропочвенные районы: 5, 6. Дерново-сильноподзолистая тяжелосуглинистая на делювиальных отложениях 5, 6 50 Не указано на листе Не указаны на листе">
+  <div class="soil-image"><img src="/images/soils/031/monolith.jpg" alt="Фотография из исходной пары; принадлежность почве требует сверки" width="210" height="1280" loading="lazy" decoding="async"><span class="specimen-number">031</span></div>
+  <div class="soil-content"><span class="soil-family">Подзолистые</span>
+    <h3>Дерново-сильноподзолистая тяжелосуглинистая на делювиальных отложениях</h3><p>Балл бонитета — 50. Агропочвенные районы: 5, 6.</p><span class="review-badge">Фото требует сверки</span>
+    <div class="soil-highlights"><span>Бонитет <strong>50 баллов</strong></span><span>Профиль на листе <strong>до 100 см</strong></span></div>
+    <span class="soil-open">Подробнее <span aria-hidden="true">→</span></span>
+  </div>
+</a><a class="soil-card" href="/soils/032/" data-family="Болотные и глеевые" data-search="032 Перегнойная грунтово-глеевая оподзоленная многогумусная глинистая Болотные и глеевые Балл бонитета — 45. Агропочвенные районы: 1, 2, 3, 4, 5, 6, 7, 8. Перегнойная грунтово-глеевая оподзоленная многогумусная глинистая 1, 2, 3, 4, 5, 6, 7, 8 45 Не указано на листе Не указаны на листе">
+  <div class="soil-image"><img src="/images/soils/032/monolith.jpg" alt="Монолит: Перегнойная грунтово-глеевая оподзоленная многогумусная глинистая" width="200" height="1280" loading="lazy" decoding="async"><span class="specimen-number">032</span></div>
+  <div class="soil-content"><span class="soil-family">Болотные и глеевые</span>
+    <h3>Перегнойная грунтово-глеевая оподзоленная многогумусная глинистая</h3><p>Балл бонитета — 45. Агропочвенные районы: 1, 2, 3, 4, 5, 6, 7, 8.</p>
+    <div class="soil-highlights"><span>Бонитет <strong>45 баллов</strong></span><span>Профиль на листе <strong>до 100 см</strong></span></div>
+    <span class="soil-open">Подробнее <span aria-hidden="true">→</span></span>
+  </div>
+</a><a class="soil-card" href="/soils/033/" data-family="Болотные и глеевые" data-search="033 Болотная низинная торфяно-глеевая Болотные и глеевые Балл бонитета — 75. Агропочвенные районы: 1, 2, 3, 4. Болотная низинная торфяно-глеевая 1, 2, 3, 4 75 Не указано на листе Не указаны на листе">
+  <div class="soil-image"><img src="/images/soils/033/monolith.jpg" alt="Монолит: Болотная низинная торфяно-глеевая" width="165" height="1280" loading="lazy" decoding="async"><span class="specimen-number">033</span></div>
+  <div class="soil-content"><span class="soil-family">Болотные и глеевые</span>
+    <h3>Болотная низинная торфяно-глеевая</h3><p>Балл бонитета — 75. Агропочвенные районы: 1, 2, 3, 4.</p>
+    <div class="soil-highlights"><span>Бонитет <strong>75 баллов</strong></span><span>Профиль на листе <strong>до 100 см</strong></span></div>
+    <span class="soil-open">Подробнее <span aria-hidden="true">→</span></span>
+  </div>
+</a><a class="soil-card" href="/soils/034/" data-family="Болотные и глеевые" data-search="034 Болотная низинная карбонатная на средних торфах Болотные и глеевые Балл бонитета — 80. Агропочвенные районы: 1, 2. Болотная низинная карбонатная на средних торфах 1, 2 80 Не указано на листе Не указаны на листе">
+  <div class="soil-image"><img src="/images/soils/034/monolith.jpg" alt="Монолит: Болотная низинная карбонатная на средних торфах" width="232" height="1280" loading="lazy" decoding="async"><span class="specimen-number">034</span></div>
+  <div class="soil-content"><span class="soil-family">Болотные и глеевые</span>
+    <h3>Болотная низинная карбонатная на средних торфах</h3><p>Балл бонитета — 80. Агропочвенные районы: 1, 2.</p>
+    <div class="soil-highlights"><span>Бонитет <strong>80 баллов</strong></span><span>Профиль на листе <strong>до 100 см</strong></span></div>
+    <span class="soil-open">Подробнее <span aria-hidden="true">→</span></span>
+  </div>
+</a><a class="soil-card" href="/soils/035/" data-family="Серые лесные" data-search="035 Светло-серая лесная маломощная тяжелосуглинистая (пастбище) Серые лесные Балл бонитета — 56. Агропочвенные районы: 1, 2, 3, 4. Светло-серая лесная маломощная тяжелосуглинистая (пастбище) 1, 2, 3, 4 56 Пастбище Не указаны на листе">
+  <div class="soil-image"><img src="/images/soils/035/monolith.jpg" alt="Монолит: Светло-серая лесная маломощная тяжелосуглинистая (пастбище)" width="205" height="1280" loading="lazy" decoding="async"><span class="specimen-number">035</span></div>
+  <div class="soil-content"><span class="soil-family">Серые лесные</span>
+    <h3>Светло-серая лесная маломощная тяжелосуглинистая (пастбище)</h3><p>Балл бонитета — 56. Агропочвенные районы: 1, 2, 3, 4.</p>
+    <div class="soil-highlights"><span>Бонитет <strong>56 баллов</strong></span><span>Профиль на листе <strong>до 100 см</strong></span></div>
+    <span class="soil-open">Подробнее <span aria-hidden="true">→</span></span>
+  </div>
+</a><a class="soil-card" href="/soils/036/" data-family="Серые лесные" data-search="036 Серая лесная среднемощная глинистая (пастбище) Серые лесные Балл бонитета — 75. Агропочвенные районы: 1, 2, 3, 4. Серая лесная среднемощная глинистая (пастбище) 1, 2, 3, 4 75 Пастбище Не указаны на листе">
+  <div class="soil-image"><img src="/images/soils/036/monolith.jpg" alt="Монолит: Серая лесная среднемощная глинистая (пастбище)" width="200" height="1280" loading="lazy" decoding="async"><span class="specimen-number">036</span></div>
+  <div class="soil-content"><span class="soil-family">Серые лесные</span>
+    <h3>Серая лесная среднемощная глинистая (пастбище)</h3><p>Балл бонитета — 75. Агропочвенные районы: 1, 2, 3, 4.</p>
+    <div class="soil-highlights"><span>Бонитет <strong>75 баллов</strong></span><span>Профиль на листе <strong>до 100 см</strong></span></div>
+    <span class="soil-open">Подробнее <span aria-hidden="true">→</span></span>
+  </div>
+</a><a class="soil-card" href="/soils/037/" data-family="Серые лесные" data-search="037 Серая лесная маломощная глинистая (пастбище) Серые лесные Балл бонитета — 68. Агропочвенные районы: 1, 2, 3, 4. Серая лесная маломощная глинистая (пастбище) 1, 2, 3, 4 68 Пастбище Не указаны на листе">
+  <div class="soil-image"><img src="/images/soils/037/monolith.jpg" alt="Монолит: Серая лесная маломощная глинистая (пастбище)" width="222" height="1280" loading="lazy" decoding="async"><span class="specimen-number">037</span></div>
+  <div class="soil-content"><span class="soil-family">Серые лесные</span>
+    <h3>Серая лесная маломощная глинистая (пастбище)</h3><p>Балл бонитета — 68. Агропочвенные районы: 1, 2, 3, 4.</p>
+    <div class="soil-highlights"><span>Бонитет <strong>68 баллов</strong></span><span>Профиль на листе <strong>до 100 см</strong></span></div>
+    <span class="soil-open">Подробнее <span aria-hidden="true">→</span></span>
+  </div>
+</a><a class="soil-card" href="/soils/038/" data-family="Серые лесные" data-search="038 Серая лесная среднемощная тяжелосуглинистая (пашня) Серые лесные Балл бонитета — 75. Агропочвенные районы: 1, 2, 3, 4. Серая лесная среднемощная тяжелосуглинистая (пашня) 1, 2, 3, 4 75 Пашня Не указаны на листе">
+  <div class="soil-image"><img src="/images/soils/038/monolith.jpg" alt="Монолит: Серая лесная среднемощная тяжелосуглинистая (пашня)" width="219" height="1280" loading="lazy" decoding="async"><span class="specimen-number">038</span></div>
+  <div class="soil-content"><span class="soil-family">Серые лесные</span>
+    <h3>Серая лесная среднемощная тяжелосуглинистая (пашня)</h3><p>Балл бонитета — 75. Агропочвенные районы: 1, 2, 3, 4.</p>
+    <div class="soil-highlights"><span>Бонитет <strong>75 баллов</strong></span><span>Профиль на листе <strong>до 100 см</strong></span></div>
+    <span class="soil-open">Подробнее <span aria-hidden="true">→</span></span>
+  </div>
+</a><a class="soil-card" href="/soils/039/" data-family="Серые лесные" data-search="039 Тёмно-серая лесная среднемощная тяжелосуглинистая Серые лесные Балл бонитета — 85. Агропочвенные районы: 1, 2, 3, 4. Тёмно-серая лесная среднемощная тяжелосуглинистая 1, 2, 3, 4 85 Не указано на листе Не указаны на листе">
+  <div class="soil-image"><img src="/images/soils/039/monolith.jpg" alt="Монолит: Тёмно-серая лесная среднемощная тяжелосуглинистая" width="222" height="1280" loading="lazy" decoding="async"><span class="specimen-number">039</span></div>
+  <div class="soil-content"><span class="soil-family">Серые лесные</span>
+    <h3>Тёмно-серая лесная среднемощная тяжелосуглинистая</h3><p>Балл бонитета — 85. Агропочвенные районы: 1, 2, 3, 4.</p>
+    <div class="soil-highlights"><span>Бонитет <strong>85 баллов</strong></span><span>Профиль на листе <strong>до 100 см</strong></span></div>
+    <span class="soil-open">Подробнее <span aria-hidden="true">→</span></span>
+  </div>
+</a><a class="soil-card" href="/soils/040/" data-family="Серые лесные" data-search="040 Тёмно-серая лесная среднемощная тяжелосуглинистая Серые лесные Балл бонитета — 80. Агропочвенные районы: 1, 2, 3, 4. Тёмно-серая лесная среднемощная тяжелосуглинистая 1, 2, 3, 4 80 Не указано на листе Не указаны на листе">
+  <div class="soil-image"><img src="/images/soils/040/monolith.jpg" alt="Монолит: Тёмно-серая лесная среднемощная тяжелосуглинистая" width="205" height="1280" loading="lazy" decoding="async"><span class="specimen-number">040</span></div>
+  <div class="soil-content"><span class="soil-family">Серые лесные</span>
+    <h3>Тёмно-серая лесная среднемощная тяжелосуглинистая</h3><p>Балл бонитета — 80. Агропочвенные районы: 1, 2, 3, 4.</p>
+    <div class="soil-highlights"><span>Бонитет <strong>80 баллов</strong></span><span>Профиль на листе <strong>до 100 см</strong></span></div>
+    <span class="soil-open">Подробнее <span aria-hidden="true">→</span></span>
+  </div>
+</a><a class="soil-card" href="/soils/041/" data-family="Чернозёмы и луговые" data-search="041 Чернозём оподзоленный маломощный тяжелосуглинистый Чернозёмы и луговые Балл бонитета — 85. Агропочвенные районы: 1, 2. Чернозём оподзоленный маломощный тяжелосуглинистый 1, 2 85 Не указано на листе Не указаны на листе">
+  <div class="soil-image"><img src="/images/soils/041/monolith.jpg" alt="Фотография из исходной пары; принадлежность почве требует сверки" width="210" height="1280" loading="lazy" decoding="async"><span class="specimen-number">041</span></div>
+  <div class="soil-content"><span class="soil-family">Чернозёмы и луговые</span>
+    <h3>Чернозём оподзоленный маломощный тяжелосуглинистый</h3><p>Балл бонитета — 85. Агропочвенные районы: 1, 2.</p><span class="review-badge">Фото требует сверки</span>
+    <div class="soil-highlights"><span>Бонитет <strong>85 баллов</strong></span><span>Профиль на листе <strong>до 100 см</strong></span></div>
+    <span class="soil-open">Подробнее <span aria-hidden="true">→</span></span>
+  </div>
+</a><a class="soil-card" href="/soils/042/" data-family="Чернозёмы и луговые" data-search="042 Чернозём оподзоленный среднемощный тяжелосуглинистый Чернозёмы и луговые Балл бонитета — 95. Агропочвенные районы: 1, 2. Чернозём оподзоленный среднемощный тяжелосуглинистый 1, 2 95 Не указано на листе Не указаны на листе">
+  <div class="soil-image"><img src="/images/soils/042/monolith.jpg" alt="Монолит: Чернозём оподзоленный среднемощный тяжелосуглинистый" width="195" height="1280" loading="lazy" decoding="async"><span class="specimen-number">042</span></div>
+  <div class="soil-content"><span class="soil-family">Чернозёмы и луговые</span>
+    <h3>Чернозём оподзоленный среднемощный тяжелосуглинистый</h3><p>Балл бонитета — 95. Агропочвенные районы: 1, 2.</p>
+    <div class="soil-highlights"><span>Бонитет <strong>95 баллов</strong></span><span>Профиль на листе <strong>до 100 см</strong></span></div>
+    <span class="soil-open">Подробнее <span aria-hidden="true">→</span></span>
+  </div>
+</a><a class="soil-card" href="/soils/043/" data-family="Чернозёмы и луговые" data-search="043 Лугово-чернозёмная оподзоленная среднемощная тяжелосуглинистая Чернозёмы и луговые Балл бонитета — 83. Агропочвенные районы: 1, 2, 4. Лугово-чернозёмная оподзоленная среднемощная тяжелосуглинистая 1, 2, 4 83 Не указано на листе Не указаны на листе">
+  <div class="soil-image"><img src="/images/soils/043/monolith.jpg" alt="Монолит: Лугово-чернозёмная оподзоленная среднемощная тяжелосуглинистая" width="220" height="1280" loading="lazy" decoding="async"><span class="specimen-number">043</span></div>
+  <div class="soil-content"><span class="soil-family">Чернозёмы и луговые</span>
+    <h3>Лугово-чернозёмная оподзоленная среднемощная тяжелосуглинистая</h3><p>Балл бонитета — 83. Агропочвенные районы: 1, 2, 4.</p>
+    <div class="soil-highlights"><span>Бонитет <strong>83 баллов</strong></span><span>Профиль на листе <strong>до 100 см</strong></span></div>
+    <span class="soil-open">Подробнее <span aria-hidden="true">→</span></span>
+  </div>
+</a><a class="soil-card" href="/soils/044/" data-family="Аллювиальные" data-search="044 Аллювиальная дерновая зернистая среднесуглинистая Аллювиальные Балл бонитета — 95. Агропочвенные районы: 1, 2, 3. Аллювиальная дерновая зернистая среднесуглинистая 1, 2, 3 95 Не указано на листе Не указаны на листе">
+  <div class="soil-image"><img src="/images/soils/044/monolith.jpg" alt="Монолит: Аллювиальная дерновая зернистая среднесуглинистая" width="203" height="1280" loading="lazy" decoding="async"><span class="specimen-number">044</span></div>
+  <div class="soil-content"><span class="soil-family">Аллювиальные</span>
+    <h3>Аллювиальная дерновая зернистая среднесуглинистая</h3><p>Балл бонитета — 95. Агропочвенные районы: 1, 2, 3.</p>
+    <div class="soil-highlights"><span>Бонитет <strong>95 баллов</strong></span><span>Профиль на листе <strong>до 100 см</strong></span></div>
+    <span class="soil-open">Подробнее <span aria-hidden="true">→</span></span>
+  </div>
+</a><a class="soil-card" href="/soils/045/" data-family="Чернозёмы и луговые" data-search="045 Чернозём выщелоченный маломощный тяжелосуглинистый Чернозёмы и луговые Балл бонитета — 98. Агропочвенные районы: 2. Чернозём выщелоченный маломощный тяжелосуглинистый 2 98 Не указано на листе Не указаны на листе">
+  <div class="soil-image"><img src="/images/soils/045/monolith.jpg" alt="Монолит: Чернозём выщелоченный маломощный тяжелосуглинистый" width="222" height="1280" loading="lazy" decoding="async"><span class="specimen-number">045</span></div>
+  <div class="soil-content"><span class="soil-family">Чернозёмы и луговые</span>
+    <h3>Чернозём выщелоченный маломощный тяжелосуглинистый</h3><p>Балл бонитета — 98. Агропочвенные районы: 2.</p>
+    <div class="soil-highlights"><span>Бонитет <strong>98 баллов</strong></span><span>Профиль на листе <strong>до 100 см</strong></span></div>
+    <span class="soil-open">Подробнее <span aria-hidden="true">→</span></span>
+  </div>
+</a><a class="soil-card" href="/soils/046/" data-family="Чернозёмы и луговые" data-search="046 Чернозёмно-луговая среднемощная тяжелосуглинистая Чернозёмы и луговые Балл бонитета — 80. Агропочвенные районы: 1, 2. Чернозёмно-луговая среднемощная тяжелосуглинистая 1, 2 80 Не указано на листе Не указаны на листе">
+  <div class="soil-image"><img src="/images/soils/046/monolith.jpg" alt="Монолит: Чернозёмно-луговая среднемощная тяжелосуглинистая" width="215" height="1280" loading="lazy" decoding="async"><span class="specimen-number">046</span></div>
+  <div class="soil-content"><span class="soil-family">Чернозёмы и луговые</span>
+    <h3>Чернозёмно-луговая среднемощная тяжелосуглинистая</h3><p>Балл бонитета — 80. Агропочвенные районы: 1, 2.</p>
+    <div class="soil-highlights"><span>Бонитет <strong>80 баллов</strong></span><span>Профиль на листе <strong>до 100 см</strong></span></div>
+    <span class="soil-open">Подробнее <span aria-hidden="true">→</span></span>
+  </div>
+</a><a class="soil-card" href="/soils/047/" data-family="Солонцы и солончаки" data-search="047 Солонец высокостолбчатый осолодевающий тяжелосуглинистый Солонцы и солончаки Балл бонитета — 20. Агропочвенные районы: 2. Солонец высокостолбчатый осолодевающий тяжелосуглинистый 2 20 Не указано на листе Не указаны на листе">
+  <div class="soil-image"><img src="/images/soils/047/monolith.jpg" alt="Монолит: Солонец высокостолбчатый осолодевающий тяжелосуглинистый" width="206" height="1280" loading="lazy" decoding="async"><span class="specimen-number">047</span></div>
+  <div class="soil-content"><span class="soil-family">Солонцы и солончаки</span>
+    <h3>Солонец высокостолбчатый осолодевающий тяжелосуглинистый</h3><p>Балл бонитета — 20. Агропочвенные районы: 2.</p>
+    <div class="soil-highlights"><span>Бонитет <strong>20 баллов</strong></span><span>Профиль на листе <strong>до 100 см</strong></span></div>
+    <span class="soil-open">Подробнее <span aria-hidden="true">→</span></span>
+  </div>
+</a><a class="soil-card" href="/soils/048/" data-family="Серые лесные" data-search="048 Светло-серая лесная маломощная тяжелосуглинистая Серые лесные Балл бонитета — 65. Агропочвенные районы: 1, 2, 3, 4. Светло-серая лесная маломощная тяжелосуглинистая 1, 2, 3, 4 65 Не указано на листе Не указаны на листе">
+  <div class="soil-image"><img src="/images/soils/048/monolith.jpg" alt="Монолит: Светло-серая лесная маломощная тяжелосуглинистая" width="270" height="1280" loading="lazy" decoding="async"><span class="specimen-number">048</span></div>
+  <div class="soil-content"><span class="soil-family">Серые лесные</span>
+    <h3>Светло-серая лесная маломощная тяжелосуглинистая</h3><p>Балл бонитета — 65. Агропочвенные районы: 1, 2, 3, 4.</p>
+    <div class="soil-highlights"><span>Бонитет <strong>65 баллов</strong></span><span>Профиль на листе <strong>до 100 см</strong></span></div>
+    <span class="soil-open">Подробнее <span aria-hidden="true">→</span></span>
+  </div>
+</a></div>
+  <p id="catalog-empty" class="catalog-empty" hidden>Образцы не найдены. Попробуйте другое название или сбросьте фильтры.</p>
+  <div class="catalog-more"><button id="catalog-more" type="button" hidden>Показать ещё</button></div>
+</section>
+<!-- SOIL_CATALOG_END -->
+
+    <div class="chat-section" id="ai-chat">
+      <div class="account-bar">
+        <div><span class="account-eyebrow">Ваше пространство</span><strong id="account-label">ИИ-почвовед</strong><span id="account-subtitle">Войдите, чтобы сохранять беседы и возвращаться к ним.</span></div>
+        <div class="account-actions"><button type="button" id="open-feedback-admin" class="account-secondary" hidden>Отзывы</button><button type="button" id="open-auth" class="account-primary">Войти / Регистрация</button><button type="button" id="logout-btn" class="account-secondary" hidden>Выйти</button><button type="button" id="open-security" class="account-secondary" hidden>Пароль</button></div>
+      </div>
+      <div class="chat-header">
+        <h2>ИИ-почвовед</h2>
+        <div class="chat-header-actions">
+          <div class="chat-status"><div class="status-dot"></div><span>Онлайн</span></div>
+          <button id="memory-toggle" class="mobile-memory-toggle" type="button" aria-label="Как работает память беседы" aria-expanded="false" aria-controls="memory-note">i</button>
+          <button class="new-chat-btn" id="new-chat" type="button">Новый чат</button>
+        </div>
+      </div>
+    <div class="queue-banner" id="queue-banner" role="status" aria-live="polite">
+      <div class="queue-icon">
+        <svg viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="10"/>
+          <polyline points="12 6 12 12 16 14"/>
+        </svg>
+      </div>
+      <div class="queue-content">
+        <h3 id="queue-title">Ожидаем ответа</h3>
+        <p id="queue-details">Запросов перед вами: <span id="queue-count">0</span></p>
+      </div>
+      <div class="queue-timer" id="queue-timer">В очереди</div>
+    </div>
+
+      <p class="chat-memory-note" id="memory-note">Можно задавать уточняющие вопросы. Гостевая беседа хранится 30 минут без новых сообщений. В аккаунте беседы сохраняются до удаления.</p>
+      <section class="saved-chats" id="saved-chats" hidden aria-label="Сохранённые беседы"><div class="saved-chats-header"><h3><span class="saved-chats-title">Мои беседы</span><button id="mobile-chats-toggle" type="button" aria-expanded="false" aria-controls="saved-chat-list">Мои беседы <span aria-hidden="true">⌄</span></button></h3><button id="refresh-chats" type="button" class="account-text">Обновить</button></div><p id="saved-chat-status" role="status"></p><div id="saved-chat-list"></div></section>
+      <p class="chat-notice" id="chat-notice" role="status" aria-live="polite"></p>
+      <button type="button" id="older-messages" class="account-secondary older-messages" hidden>Показать более ранние сообщения</button>
+      <p id="quota-status" role="status"></p>
+      <div class="chat-window" id="chat-window" role="log" aria-label="Переписка с ИИ">
+        <div class="message ai">Здравствуйте! Я готов ответить на ваши вопросы о почвах и монолитах музея.</div>
+      </div>
+      
+      <div class="chat-composer">
+        <div class="photo-preview" id="photo-preview" hidden>
+          <img id="photo-thumbnail" alt="Прикреплённая фотография">
+          <span id="photo-name"></span>
+          <button type="button" id="remove-photo">Убрать фото</button>
+        </div>
+
+        <div class="input-area">
+          <input type="text" id="chat-input" maxlength="4000" placeholder="Задайте вопрос о почве..." aria-label="Ваш вопрос" aria-describedby="upload-hint">
+          <div class="input-actions">
+            <button type="button" class="upload-btn" id="attach-photo" title="Прикрепить фото" aria-label="Прикрепить фотографию" aria-describedby="upload-hint">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="m21.4 11.1-9.2 9.2a6 6 0 0 1-8.5-8.5l10-10a4 4 0 0 1 5.7 5.7l-10 10a2 2 0 0 1-2.8-2.8l9.2-9.2"/>
+              </svg>
+              <span>Фото</span>
+            </button>
+            <input type="file" accept="image/jpeg,image/png,image/webp" id="file-upload" aria-label="Прикрепить фотографию к вопросу" hidden>
+            <button type="button" id="send-btn">Отправить</button>
+          </div>
+        </div>
+        <p class="upload-error" id="upload-error" role="alert"></p>
+        <p class="chat-privacy">Отправляя вопрос, вы принимаете <a href="/terms/" target="_blank" rel="noopener">условия сервиса</a>. <a href="/privacy/" target="_blank" rel="noopener">О персональных данных</a>.</p>
+      </div>
+      
+      <details class="chat-help" open>
+        <summary>Примеры вопросов и информация</summary>
+        <div class="chat-help-content">
+      <div class="quick-questions">
+        <button class="quick-btn" data-q="Когда в музее появилась почва из Грузии и чем она интересна?">Про почву из Грузии</button>
+        <button class="quick-btn" data-q="Что такое геологическая колонка?">Что такое геологическая колонка?</button>
+      </div>
+        <p class="upload-hint" id="upload-hint">JPEG, PNG или WebP · до 5 МБ. Можно отправить фото без текста.</p>
+
+        </div>
+      </details>
+    </div>
+    <footer class="site-footer"><a href="/privacy">Политика конфиденциальности</a></footer>
+  </div>
+
+  <dialog id="auth-dialog" class="account-dialog" aria-labelledby="auth-title" aria-describedby="auth-description">
+    <button type="button" class="dialog-close" id="close-auth" aria-label="Закрыть окно входа">×</button>
+    <div class="auth-dialog-content">
+    <div class="auth-brand"><span class="auth-brand-mark" aria-hidden="true">T</span><span>TerraMind<small>Ваши беседы о почве</small></span></div><h2 id="auth-title">С возвращением</h2><p id="auth-description">Войдите, чтобы продолжить сохранённую беседу.</p>
+    <div class="auth-tabs" role="group" aria-label="Вход или регистрация"><button type="button" id="auth-login-tab" aria-pressed="true">Вход</button><button type="button" id="auth-register-tab" aria-pressed="false">Регистрация</button></div>
+    <form id="auth-form">
+      <label id="auth-name-label" hidden>Как к вам обращаться<input id="auth-name" name="name" autocomplete="name" maxlength="80"></label>
+      <label>Email<input id="auth-email" name="email" type="email" autocomplete="username" maxlength="254" required></label>
+      <label>Пароль<div class="password-field"><input id="auth-password" name="password" type="password" autocomplete="current-password" maxlength="128" required><button type="button" id="toggle-auth-password" aria-controls="auth-password" aria-pressed="false">Показать</button></div></label>
+      <p id="password-hint" class="auth-hint" hidden>От 12 до 128 символов. Лучше длинная уникальная фраза. Не используйте пароль от почты или других сайтов.</p>
+      <label id="auth-terms-label" class="auth-check" hidden><input id="auth-terms" name="terms" type="checkbox"><span>Принимаю <a href="/terms/" target="_blank" rel="noopener">условия сервиса</a></span></label>
+      <p class="auth-hint">О хранении сообщений и учётной записи — в <a href="/privacy/" target="_blank" rel="noopener">политике конфиденциальности</a>.</p>
+      <p id="auth-error" role="alert" class="auth-error"></p><button id="auth-submit" class="account-primary" type="submit">Войти</button>
+    </form>
+    </div>
+  </dialog>
+  <dialog id="security-dialog" class="account-dialog" aria-labelledby="security-title" aria-describedby="security-description">
+    <button type="button" id="close-security" class="dialog-close" aria-label="Закрыть настройки аккаунта">×</button>
+    <div class="auth-dialog-content">
+      <p class="security-eyebrow">Настройки аккаунта</p><h2 id="security-title">Пароль и безопасность</h2>
+      <p id="security-email" class="security-email"></p>
+      <p id="security-description">Если Chrome нашёл пароль в утечке, замените его на уникальный. Это предупреждение о пароле, а не доказательство взлома TerraMind.</p>
+      <form id="password-form">
+        <input id="security-username" name="username" type="hidden" autocomplete="username">
+        <label>Текущий пароль<input id="current-password" type="password" autocomplete="current-password" maxlength="128" required></label>
+        <label>Новый пароль<input id="new-password" type="password" autocomplete="new-password" minlength="12" maxlength="128" required aria-describedby="new-password-hint"></label>
+        <p id="new-password-hint" class="auth-hint">Не менее 12 символов. Подойдёт длинная фраза, которую вы нигде больше не используете.</p>
+        <label>Повторите новый пароль<input id="confirm-password" type="password" autocomplete="new-password" minlength="12" maxlength="128" required></label>
+        <p id="password-error" role="alert" class="auth-error"></p>
+        <p class="auth-hint">После смены пароля остальные сеансы завершатся. Чаты сохранятся.</p>
+        <button type="submit" id="change-password-submit" class="account-primary">Сменить пароль</button>
+      </form>
+      <div class="account-danger-zone"><span>Удаление аккаунта и всех его бесед</span><button type="button" id="open-account-delete" class="account-text" hidden>Удалить аккаунт</button></div>
+    </div>
+  </dialog>
+  <dialog id="account-delete-dialog" class="account-dialog" aria-labelledby="account-delete-title"><button type="button" id="close-account-delete" class="dialog-close" aria-label="Закрыть окно удаления">×</button><h2 id="account-delete-title">Удалить аккаунт?</h2><p>Ваш аккаунт и сохранённые беседы будут удалены. Восстановить их не получится.</p><form id="account-delete-form"><label>Подтвердите своим паролем<input type="password" id="account-delete-password" autocomplete="current-password" maxlength="128" required></label><p id="account-delete-error" role="alert" class="auth-error"></p><button id="account-delete-submit" class="account-danger" type="submit">Удалить аккаунт и беседы</button></form></dialog>
+  <dialog id="feedback-admin-dialog" class="account-dialog" aria-labelledby="feedback-admin-title"><button type="button" id="close-feedback-admin" class="dialog-close" aria-label="Закрыть отзывы">×</button><h2 id="feedback-admin-title">Отзывы об ИИ</h2><p>Последние 50 отзывов. Видны только администраторам.</p><div id="feedback-admin-list"></div></dialog>
+  <script src="/chat.js?v=20261106a" defer></script>
+</body>
+</html>

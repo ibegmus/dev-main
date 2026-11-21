@@ -1,0 +1,113 @@
+.account-bar{display:flex;align-items:center;justify-content:space-between;gap:20px;background:#edf3ee;border:1px solid #dce7dd;padding:22px 24px;border-radius:18px;margin-bottom:28px}.account-bar>div:first-child{min-width:0}.account-eyebrow{display:block;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:#678172;margin-bottom:7px}.account-bar strong{display:block;font-size:18px;color:#294e3e;overflow-wrap:anywhere}.account-bar #account-subtitle{display:block;font-size:12px;color:#65776c;line-height:1.6;margin-top:6px}.account-actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:flex-end}.account-primary,.account-secondary,.account-danger{border:0;border-radius:10px;padding:11px 17px;font:inherit;font-size:13px;cursor:pointer}.account-primary{color:white;background:#315c49}.account-primary:hover{background:#244736}.account-secondary{border:1px solid #c8d9ce;background:#f7faf7;color:#315c49}.account-danger{background:#923f37;color:white}.account-text{border:0;background:none;color:#526c5c;text-decoration:underline;text-underline-offset:3px;cursor:pointer;font:inherit;font-size:12px;padding:6px}.account-actions button[hidden],.saved-chats[hidden],.account-dialog [hidden],.older-messages[hidden]{display:none}.account-dialog{padding:32px;width:min(440px,calc(100vw - 32px));max-height:calc(100dvh - 40px);overflow:auto;border:1px solid #e1e8df;border-radius:22px;box-shadow:0 30px 100px #13261b44;color:#294438;background:#fbfcf9}.account-dialog::backdrop{background:#10291c80;backdrop-filter:blur(4px)}.account-dialog h2{font-family:inherit;font-size:27px;margin:16px 0 10px;line-height:1.15}.account-dialog p{font-size:13px;line-height:1.6;color:#637469}.dialog-close{position:absolute;right:15px;top:12px;border:0;background:none;color:#5c7063;font-size:28px;cursor:pointer}.auth-tabs{display:flex;padding:4px;background:#edf2eb;border-radius:11px;margin:22px 0}.auth-tabs button{flex:1;background:none;border:0;border-radius:8px;padding:10px;font:inherit;color:#57715f;cursor:pointer;font-size:13px}.auth-tabs button[aria-pressed=true]{background:white;box-shadow:0 2px 8px #18341a0a;color:#274d39}.account-dialog form>label:not(.auth-check){display:block;margin:16px 0;font-size:13px;font-weight:600}.account-dialog input:not([type=checkbox]){width:100%;box-sizing:border-box;padding:12px;margin-top:7px;border:1px solid #ccd8cc;border-radius:9px;background:white;color:#263d30;font:inherit;min-width:0}.account-dialog input:focus{outline:2px solid #8eae95;outline-offset:1px}.account-dialog .auth-check{display:flex;gap:10px;align-items:flex-start;font-size:12px;line-height:1.5;font-weight:400;margin:16px 0}.auth-check input{margin-top:3px;accent-color:#355d44}.account-dialog a{color:#315c49;text-underline-offset:3px}.account-dialog .auth-hint{font-size:11px}.account-dialog .auth-error{color:#9a4033;white-space:pre-wrap}.account-dialog .auth-error:empty{display:none}.account-dialog form>button[type=submit]{width:100%;margin-top:8px}button:disabled{cursor:wait;opacity:.6}.saved-chats{margin:20px 0 24px;padding:18px;background:#fafbf8;border:1px solid #e0e8dc;border-radius:14px}.saved-chats-header{display:flex;align-items:center;justify-content:space-between;gap:12px}.saved-chats h3{font-size:14px;margin:0;color:#34503e}#saved-chat-status{font-size:12px;line-height:1.5;color:#6e7d71;margin:10px 0}#saved-chat-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;max-height:245px;overflow-y:auto}.saved-chat-item{display:flex;align-items:center;gap:4px;border:1px solid #dfe7dc;border-radius:9px;background:white;min-width:0}.saved-chat-item.active{border-color:#789b80;background:#edf4e9}.saved-chat-open{padding:12px;min-width:0;flex:1;text-align:left;cursor:pointer;border:0;background:none;font:inherit;color:#355341}.saved-chat-open strong{display:block;font-size:12px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;font-weight:500}.saved-chat-open small{display:block;font-size:10px;color:#7b887b;margin-top:4px}.saved-chat-delete{flex-shrink:0;border:0;background:none;cursor:pointer;padding:12px;color:#8a7668;font-size:18px}.older-messages{display:block;margin:0 auto 12px}.soil-wait{display:flex;align-items:center;gap:22px;min-height:140px;padding:8px 0}.soil-wait svg{flex:0 0 110px;width:110px;height:144px;overflow:visible}.soil-wait-text{font-size:14px;color:#385441;line-height:1.6;white-space:normal}.soil-wait-text small{display:block;color:#83917f;font-size:11px;margin-top:6px}.soil-scan{animation:soil-scan 3.7s ease-in-out infinite}.soil-sprout{transform-origin:55px 27px;animation:soil-breathe 3s ease-in-out infinite}.soil-particle{animation:soil-particle 3s ease-in-out infinite}.soil-particle:nth-child(2n){animation-delay:1s}@keyframes soil-scan{0%,100%{transform:translateY(0);opacity:.35}50%{transform:translateY(89px);opacity:1}}@keyframes soil-breathe{0%,100%{transform:rotate(-4deg)}50%{transform:rotate(4deg)}}@keyframes soil-particle{0%,100%{opacity:.35}50%{opacity:.85}}@media(prefers-reduced-motion:reduce){.soil-scan,.soil-sprout,.soil-particle{animation:none}.soil-scan{transform:translateY(40px)}}
+
+/* Explicit positioning survives the page-wide margin reset and flex layout. */
+.account-dialog {
+  position: fixed;
+  inset: 0;
+  margin: auto;
+  width: min(460px, calc(100vw - 32px));
+  height: fit-content;
+  max-height: calc(100vh - 32px);
+  max-height: calc(100dvh - 32px);
+  padding: 36px;
+  border: 1px solid #dce7d9;
+  border-radius: 24px;
+  background: #fcfdf9;
+  box-shadow: 0 28px 100px #122e2840;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+}
+.account-dialog::backdrop { background: #152c26a6; backdrop-filter: blur(7px); }
+.account-dialog :focus-visible { outline: 2px solid #6b956e; outline-offset: 3px; }
+.auth-brand { display: flex; align-items: center; gap: 12px; margin-bottom: 30px; color: #305340; font-size: 19px; font-weight: 600; letter-spacing: -.5px; }
+.auth-brand-mark { display: grid; place-items: center; width: 42px; height: 46px; flex: 0 0 42px; background: #e7eedf; border: 1px solid #d4e1cc; border-radius: 14px 14px 19px 19px; color: #4a6943; font-family: Georgia, serif; font-size: 27px; }
+.auth-brand small { display: block; font-size: 10px; font-weight: 400; color: #74836c; letter-spacing: .1px; margin-top: 4px; }
+.account-dialog h2 { font-size: 29px; font-weight: 600; letter-spacing: -1px; margin: 0 0 12px; }
+.account-dialog #auth-description { margin: 0; max-width: 310px; line-height: 1.65; }
+.account-dialog input:not([type=checkbox]) { height: 48px; font-size: 16px; background: #fff; border-color: #d5dfcf; }
+.account-dialog form > label:not(.auth-check) { font-size: 12px; }
+.account-dialog .auth-hint { margin: 10px 0; line-height: 1.6; color: #71816e; }
+.account-dialog .auth-error { margin: 12px 0; }
+.account-dialog .account-primary, .account-dialog .account-danger { min-height: 48px; font-weight: 600; }
+.dialog-close { display: grid; place-items: center; width: 36px; height: 36px; top: 12px; right: 12px; border-radius: 50%; line-height: 1; }
+.dialog-close:hover { background: #eaf0e4; }
+.auth-tabs { margin: 24px 0 20px; padding: 5px; }
+.auth-tabs button { min-height: 40px; }
+.account-dialog .auth-check { align-items: center; gap: 12px; margin: 18px 0 12px; }
+.auth-check input { width: 18px; height: 18px; margin: 0; flex: 0 0 18px; }
+
+/* Waiting is a centred illustration, with copy tied to the real queue state. */
+.message.ai.is-waiting { width: 100%; max-width: 100%; padding: 0; margin: 18px auto; border: 0; border-radius: 18px; background: transparent; white-space: normal; }
+.soil-wait { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; width: min(100%, 490px); margin: auto; min-height: 280px; padding: 22px 24px; border: 1px solid #e4eada; border-radius: 20px; background: radial-gradient(ellipse at 50% 10%, #f0f5e6, #fcfdf9 76%); text-align: center; }
+.soil-illustration { display: grid; place-items: center; position: relative; width: 124px; height: 126px; border-radius: 50%; background: #e8eedf70; }
+.soil-wait svg { display: block; flex: none; width: 92px; height: 120px; filter: drop-shadow(0 5px 5px #5b704216); }
+.soil-wait-copy { max-width: 360px; }
+.soil-wait-kicker { font-size: 9px; color: #809074; letter-spacing: 1px; text-transform: uppercase; margin: 0 0 8px; }
+.soil-wait .soil-wait-text { margin: 0; font: inherit; font-size: 19px; line-height: 1.3; font-weight: 600; letter-spacing: -.4px; color: #34543d; overflow-wrap: anywhere; }
+.soil-wait-description { font-size: 12px; line-height: 1.6; color: #6f7f67; margin: 9px auto 0; max-width: 330px; }
+.soil-wait-method { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; align-items: center; font-size: 10px; color: #6f8363; padding-top: 2px; }
+.soil-wait-method [aria-hidden] { color: #a2b28f; }
+.message.is-waiting[data-wait-state=queued] .soil-scan,
+.message.is-waiting[data-wait-state=sending] .soil-scan { animation-play-state: paused; opacity: .3; }
+
+
+
+@media (prefers-reduced-motion: reduce) {
+  .soil-wait svg { filter: none; }
+  .status-dot, .sidebar { animation: none; transition: none; }
+}
+/* Keep the close control visible when a short screen needs internal scrolling. */
+#auth-dialog { padding: 0; overflow: hidden; }
+.auth-dialog-content { padding: 36px; max-height: calc(100vh - 32px); max-height: calc(100dvh - 32px); overflow-y: auto; overscroll-behavior: contain; scrollbar-width: thin; }
+.account-dialog .dialog-close { z-index: 1; background: #fcfdf9e8; }
+.chat-section .queue-banner { flex-direction: row; text-align: left; gap: 12px; padding: 12px 14px; border: 0; border-radius: 12px; margin: 0 0 24px; background: #f2f5ec; box-shadow: none; }
+.chat-section .queue-icon { width: 30px; height: 30px; background: #e7eedb; }
+.chat-section .queue-icon svg { width: 17px; height: 17px; stroke: #75894e; }
+.chat-section .queue-content h3 { font-size: 12px; margin: 0; }
+.chat-section .queue-content p { font-size: 11px; line-height: 1.5; margin-top: 4px; }
+.chat-section .queue-timer { display: none; }
+
+.answer-tools { display: flex; align-items: center; flex-wrap: wrap; gap: 8px 12px; margin-top: 14px; padding-top: 10px; border-top: 1px solid #edf1e8; white-space: normal; }
+.copy-answer { border: 1px solid #d7e2d1; border-radius: 8px; background: #f6f9f2; padding: 7px 10px; min-height: 34px; color: #3c6545; font: inherit; font-size: 12px; cursor: pointer; }
+.copy-answer:hover { background: #eaf2e1; }
+.copy-answer:focus-visible { outline: 2px solid #789b80; outline-offset: 3px; }
+.copy-status { color: #697f5d; font-size: 11px; line-height: 1.5; }
+
+/* Clear credential controls, without changing the mobile chat layout. */
+.password-field { display: flex; align-items: center; position: relative; margin-top: 7px; }
+.account-dialog .password-field input { margin-top: 0; padding-right: 88px; }
+.password-field > button { position: absolute; right: 6px; border: 0; background: #eef3e8; border-radius: 7px; padding: 8px 9px; min-height: 34px; color: #496244; font: inherit; font-size: 11px; cursor: pointer; }
+.security-eyebrow { color: #6b8560; font-size: 10px; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 18px; }
+.account-dialog .security-email { display: inline-block; max-width: 100%; overflow-wrap: anywhere; margin: 0 0 14px; padding: 5px 10px; border-radius: 8px; background: #edf3e7; color: #4e6a43; font-size: 12px; }
+.account-danger-zone { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; border-top: 1px solid #e3e9df; margin-top: 24px; padding-top: 16px; font-size: 11px; color: #7c8176; }
+.account-danger-zone .account-text { color: #974c40; }
+#security-dialog { padding: 0; overflow: hidden; }
+.account-dialog button { -webkit-tap-highlight-color: rgba(65, 102, 54, .15); }
+
+#quota-status { font-size: 11px; line-height: 1.5; color: #526c5c; margin: 0 0 8px; }
+#quota-status:empty { display: none; }
+.feedback-card { padding: 18px; margin: 16px 0; border: 1px solid #ccdac5; border-radius: 16px; background: #f0f5e9; color: #294438; max-width: 520px; }
+.feedback-card h3 { font-size: 16px; line-height: 1.4; }
+.feedback-card fieldset { border: 0; margin: 12px 0; }
+.feedback-card legend, .feedback-comment-label { font-size: 12px; line-height: 1.5; }
+.feedback-stars { display: flex; gap: 4px; margin-top: 6px; }
+.feedback-stars label { position: relative; cursor: pointer; }
+.feedback-stars input { position: absolute; opacity: 0; width: 44px; height: 44px; }
+.feedback-stars label > span:first-of-type { display: grid; place-items: center; width: 44px; height: 44px; font-size: 28px; color: #72866a; border: 1px solid #cbd7c3; border-radius: 8px; background: white; }
+.feedback-stars input:checked + span { color: #875b15; background: #fff0c2; border-color: #b78b3e; }
+.feedback-stars input:focus-visible + span { outline: 3px solid #527449; outline-offset: 2px; }
+.feedback-rating-label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+.feedback-card textarea { display: block; width: 100%; resize: vertical; min-height: 80px; max-height: 240px; margin-top: 6px; border: 1px solid #bacdb2; border-radius: 8px; padding: 10px; font: inherit; font-size: 16px; background: white; }
+.feedback-card p { font-size: 12px; line-height: 1.6; margin-top: 10px; }
+.feedback-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+#feedback-admin-list article { padding: 16px 0; border-bottom: 1px solid #dce5d5; }
+#feedback-admin-list p { white-space: pre-wrap; overflow-wrap: anywhere; }
+.feedback-card summary { cursor: pointer; margin-top: 10px; padding: 8px 0; font-size: 13px; font-weight: 600; color: #315c49; }
+.feedback-card .feedback-status:empty { display: none; }
+.feedback-card > .account-text { margin-top: 4px; }
+@media (max-width: 1024px) {
+  .feedback-card { padding: 12px; }
+  .feedback-card h3 { font-size: 14px; }
+  html[data-mobile-view] .chat-section:has(.feedback-card details[open]) { height: auto; }
+  html[data-mobile-view] .chat-section:has(.feedback-card details[open]) .chat-window { height: 480px; flex: none; }
+}

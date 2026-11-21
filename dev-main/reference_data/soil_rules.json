@@ -1,0 +1,325 @@
+{
+  "schema_version": 1,
+  "version": "2026-11-15.reference-v2",
+  "purpose": "Справочные гипотезы, не автоматическое установление типа",
+  "cards": [
+    {
+      "id": "podzols",
+      "title": "Подзолы",
+      "classification": "Классификация почв России: научный веб-справочник soils.narod.ru; без автоматического перевода в WRB",
+      "review_status": "source_checked_not_expert_validated",
+      "formulas": [
+        "O-E-BHF-C",
+        "O-E-BF-C",
+        "O-E-BH-BF-C"
+      ],
+      "required_features": [
+        "pale_horizon",
+        "rust_lower",
+        "sandy_material",
+        "alfhumic_horizon"
+      ],
+      "exclude_features": [
+        "mineral_humus"
+      ],
+      "minimum_features": 3,
+      "summary": "Для проверки важны элювиальный осветлённый слой и альфегумусовый горизонт под ним; для подтверждения нужны свойства горизонта, а не только его рыжая окраска.",
+      "limitations": "Подзолы и подзолистые почвы различаются строением и составом нижележащего горизонта; белый слой не устанавливает тип. Два цветовых признака, даже подтверждённые посетителем, не являются основанием для гипотезы: нужен диагностический альфегумусовый горизонт из описания специалиста либо сообщённая полная формула профиля.",
+      "sources": [
+        {
+          "url": "https://soils.narod.ru/taxon/type/podz07.html",
+          "retrieved_on": "2026-11-15",
+          "download_sha256": "a7b724eaadf84e937bad718ad3bfcca4ce10f95d2c8a51a4a96165e89a42e16c"
+        }
+      ],
+      "confirmation_needed": "Описание и проверка свойств альфегумусового горизонта; отличие от текстурного горизонта BT.",
+      "mandatory_features": [
+        "pale_horizon",
+        "alfhumic_horizon"
+      ]
+    },
+    {
+      "id": "podzolic",
+      "title": "Подзолистые",
+      "classification": "Классификация почв России: научный веб-справочник soils.narod.ru; без автоматического перевода в WRB",
+      "review_status": "source_checked_not_expert_validated",
+      "formulas": [
+        "O-EL-BEL-BT-C"
+      ],
+      "required_features": [
+        "pale_horizon",
+        "clay_increase",
+        "clay_films"
+      ],
+      "exclude_features": [
+        "mineral_humus"
+      ],
+      "minimum_features": 2,
+      "summary": "Справочное сочетание — EL и текстурный BT с признаками перемещения глины. Самостоятельный гумусовый горизонт в центральном образе типа отсутствует.",
+      "limitations": "Плотность и бурый цвет без признаков текстурного горизонта не подтверждают BT; гумусовый горизонт требует различения с другими типами.",
+      "sources": [
+        {
+          "url": "https://soils.narod.ru/taxon/type/texdipod23.html",
+          "retrieved_on": "2026-11-15",
+          "download_sha256": "d6e1ace8e59b17dd1c769069465c3b8c7ddcca4e18f02e3d1c167b28606e5f16"
+        }
+      ],
+      "confirmation_needed": "Проверка сочетания EL, BEL и BT, а также признаков иллювиирования глины.",
+      "mandatory_features": [
+        "pale_horizon",
+        "clay_increase",
+        "clay_films"
+      ]
+    },
+    {
+      "id": "gray",
+      "title": "Серые",
+      "classification": "Классификация почв России: научный веб-справочник soils.narod.ru; без автоматического перевода в WRB",
+      "review_status": "source_checked_not_expert_validated",
+      "formulas": [
+        "AY-AEL-BEL-BT-C"
+      ],
+      "required_features": [
+        "gray_humus",
+        "clay_increase",
+        "clay_films"
+      ],
+      "exclude_features": [],
+      "minimum_features": 2,
+      "summary": "В справочнике серогумусовый AY сочетается с гумусово-элювиальным AEL и текстурным BT; обособленный EL для центрального образа не характерен.",
+      "limitations": "Серый цвет и лес рядом не являются достаточными признаками; нужно отличать AEL от отдельного EL.",
+      "sources": [
+        {
+          "url": "https://soils.narod.ru/taxon/type/texdiser23.html",
+          "retrieved_on": "2026-11-15",
+          "download_sha256": "9b78da2f27635cdac0b8a668a35d4c0b2251db845429c360d65dc8a6c536f4b7"
+        }
+      ],
+      "confirmation_needed": "Различение гумусово-элювиального AEL и самостоятельного EL; проверка BT.",
+      "mandatory_features": [
+        "gray_humus",
+        "clay_increase",
+        "clay_films"
+      ]
+    },
+    {
+      "id": "chernozems",
+      "title": "Чернозёмы",
+      "classification": "Классификация почв России: научный веб-справочник soils.narod.ru; без автоматического перевода в WRB",
+      "review_status": "source_checked_not_expert_validated",
+      "formulas": [
+        "AU-BCA-CCA"
+      ],
+      "required_features": [
+        "dark_humus",
+        "granular_structure",
+        "carbonate_below"
+      ],
+      "exclude_features": [
+        "organic_material"
+      ],
+      "minimum_features": 2,
+      "summary": "Справочное основание — тёмногумусовый структурный горизонт AU и аккумулятивно-карбонатный BCA под ним.",
+      "limitations": "Тёмная земля, компост или торф сами по себе не доказывают чернозём; карбонаты не устанавливаются по одной белой полосе.",
+      "sources": [
+        {
+          "url": "https://soils.narod.ru/taxon/type/sher06.html",
+          "retrieved_on": "2026-11-15",
+          "download_sha256": "64987ab7cc81f6abca6a6dc628a0aedc64a1f7e16b1aab3639b2d33fea5dffc8"
+        }
+      ],
+      "confirmation_needed": "Диагностика тёмногумусового AU и аккумулятивно-карбонатного BCA; цвет не заменяет эти критерии.",
+      "mandatory_features": [
+        "dark_humus",
+        "granular_structure",
+        "carbonate_below"
+      ]
+    },
+    {
+      "id": "gleyzems",
+      "title": "Глеезёмы",
+      "classification": "Классификация почв России: научный веб-справочник soils.narod.ru; без автоматического перевода в WRB",
+      "review_status": "source_checked_not_expert_validated",
+      "formulas": [
+        "O-G-CG"
+      ],
+      "required_features": [
+        "gley_colors",
+        "redox_mottles",
+        "long_waterlogging"
+      ],
+      "exclude_features": [],
+      "minimum_features": 2,
+      "summary": "Проверяется глеевый горизонт и длительное насыщение водой; характерна сизо-голубая окраска, возможны охристые окаймления.",
+      "limitations": "Один мокрый снимок и отдельные ржавые пятна не устанавливают обычный водный режим или тип.",
+      "sources": [
+        {
+          "url": "https://soils.narod.ru/taxon/type/gl11.html",
+          "retrieved_on": "2026-11-15",
+          "download_sha256": "eeebf79866592fe1dd0639b4fee21b46c1f2a454f0238daed24bd0d55c210098"
+        }
+      ],
+      "confirmation_needed": "Проверка диагностического глеевого горизонта G и обычного водного режима.",
+      "mandatory_features": [
+        "gley_colors",
+        "long_waterlogging"
+      ]
+    },
+    {
+      "id": "peat",
+      "title": "Торфяные почвы — группа проверки",
+      "classification": "Классификация почв России: научный веб-справочник soils.narod.ru; без автоматического перевода в WRB",
+      "review_status": "source_checked_not_expert_validated",
+      "formulas": [
+        "TE-TT",
+        "TO-TT"
+      ],
+      "required_features": [
+        "organic_material",
+        "peat_thickness",
+        "long_waterlogging"
+      ],
+      "exclude_features": [
+        "mineral_material"
+      ],
+      "minimum_features": 2,
+      "summary": "Органогенная торфяная толща требует отдельного описания материала и мощности; олиготрофный и эутрофный типы различаются условиями и свойствами торфа.",
+      "limitations": "Не выбирается между олиготрофным и эутрофным типами по цвету; вода и корни обычной минеральной почвы не доказывают торфяную толщу.",
+      "sources": [
+        {
+          "url": "https://soils.narod.ru/taxon/type/torfeutr24.html",
+          "retrieved_on": "2026-11-15",
+          "download_sha256": "13d16487812208726e04dd863bef64c42f19a419eb6c002172687ba27053f71b"
+        },
+        {
+          "url": "https://soils.narod.ru/taxon/type/torfoli24.html",
+          "retrieved_on": "2026-11-15",
+          "download_sha256": "8b086ec0c611131f9c9cd26b4716fc0a5ae7b3c7b7e10156b798469856ff1857"
+        }
+      ],
+      "confirmation_needed": "Мощность, состав и степень разложения органического материала; отдельное определение олиго-/эутрофного типа.",
+      "mandatory_features": [
+        "organic_material",
+        "peat_thickness",
+        "long_waterlogging"
+      ]
+    },
+    {
+      "id": "solonchaks",
+      "title": "Солончаки",
+      "classification": "Классификация почв России: научный веб-справочник soils.narod.ru; без автоматического перевода в WRB",
+      "review_status": "source_checked_not_expert_validated",
+      "formulas": [
+        "S-CS",
+        "S-CSCS"
+      ],
+      "required_features": [
+        "surface_crust",
+        "soluble_salts"
+      ],
+      "exclude_features": [],
+      "minimum_features": 2,
+      "summary": "В справочнике определяющим является солончаковый горизонт с легкорастворимыми солями; внешний налёт требует проверки состава.",
+      "limitations": "Белый налёт может иметь и другое происхождение. pH не измеряет засоление; электропроводность зависит от метода и единиц.",
+      "sources": [
+        {
+          "url": "https://soils.narod.ru/taxon/type/slabosolon19.html",
+          "retrieved_on": "2026-11-15",
+          "download_sha256": "93e73fa760ed18b9bcdcba5a138571447279a98d7f34801913b9d989da4cbd8a"
+        }
+      ],
+      "confirmation_needed": "Количественное содержание и состав легкорастворимых солей, глубина отбора, метод и единицы анализа.",
+      "mandatory_features": [
+        "surface_crust",
+        "soluble_salts"
+      ]
+    },
+    {
+      "id": "solonetz",
+      "title": "Солонцы — группа проверки",
+      "classification": "Классификация почв России: научный веб-справочник soils.narod.ru; без автоматического перевода в WRB",
+      "review_status": "source_checked_not_expert_validated",
+      "formulas": [],
+      "required_features": [
+        "columnar_structure",
+        "exchangeable_sodium"
+      ],
+      "exclude_features": [],
+      "minimum_features": 2,
+      "summary": "У справочного примера светлого солонца выделяется BSN со столбчато-призматическим сложением и соответствующими катионообменными свойствами.",
+      "limitations": "Солевой налёт и высокий pH не подтверждают солонцовый горизонт; нельзя смешивать обменный натрий с общей суммой солей.",
+      "sources": [
+        {
+          "url": "https://soils.narod.ru/taxon/type/scgldifss27.html",
+          "retrieved_on": "2026-11-15",
+          "download_sha256": "b72f953a46276781019f429c609f9827854529073f5f733fbaac00eda981b045"
+        }
+      ],
+      "confirmation_needed": "Диагностика BSN и результатов анализа обменных катионов; общий натрий в воде не равен обменному натрию.",
+      "mandatory_features": [
+        "columnar_structure",
+        "exchangeable_sodium"
+      ]
+    },
+    {
+      "id": "psammozems",
+      "title": "Псаммозёмы",
+      "classification": "Классификация почв России: научный веб-справочник soils.narod.ru; без автоматического перевода в WRB",
+      "review_status": "source_checked_not_expert_validated",
+      "formulas": [
+        "O-C"
+      ],
+      "required_features": [
+        "sandy_material",
+        "weak_profile"
+      ],
+      "exclude_features": [],
+      "minimum_features": 2,
+      "summary": "Центральный образ — подстилка над песчаной породой при слабом развитии профиля; не всякая песчаная почва относится к этому типу.",
+      "limitations": "Песок — механический состав. Нет автоматического соответствия всех Arenosols псаммозёмам.",
+      "sources": [
+        {
+          "url": "https://soils.narod.ru/taxon/type/slabopsam19.html",
+          "retrieved_on": "2026-11-15",
+          "download_sha256": "ec1f830d46643930072637f56f0c4e1cb19ce12dd799a180cc6c35c001e7d44e"
+        }
+      ],
+      "confirmation_needed": "Описание профиля и материнского материала; одна песчаность недостаточна.",
+      "mandatory_features": [
+        "sandy_material",
+        "weak_profile"
+      ]
+    },
+    {
+      "id": "burozems",
+      "title": "Бурозёмы",
+      "classification": "Классификация почв России: научный веб-справочник soils.narod.ru; без автоматического перевода в WRB",
+      "review_status": "source_checked_not_expert_validated",
+      "formulas": [
+        "AY-BM-C"
+      ],
+      "required_features": [
+        "brown_structured",
+        "loamy_material",
+        "weak_clay_transfer"
+      ],
+      "exclude_features": [],
+      "minimum_features": 2,
+      "summary": "Проверяется серогумусовый AY и структурно-метаморфический BM; требуется отличать преобразование структуры от выраженного иллювиирования глины.",
+      "limitations": "Рыжий или бурый цвет один не доказывает BM; нет автоматического соответствия всех Cambisols бурозёмам.",
+      "sources": [
+        {
+          "url": "https://soils.narod.ru/taxon/type/stmebur22.html",
+          "retrieved_on": "2026-11-15",
+          "download_sha256": "d0edeef45f903f869406b173626b3163050b493a707b2bc87d8c27cb5892dc9f"
+        }
+      ],
+      "confirmation_needed": "Проверка горизонта BM и отличий от текстурного горизонта с выраженными глинистыми плёнками.",
+      "mandatory_features": [
+        "brown_structured",
+        "loamy_material",
+        "weak_clay_transfer"
+      ]
+    }
+  ]
+}

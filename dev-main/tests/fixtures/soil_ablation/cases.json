@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "image": "case-01.jpg",
+    "sha256": "75fbb8ec09d0b3235f72225172e9b595801162d745365d132a542d32d36051d8",
+    "question": "Здравствуйте! Я в земле совсем не разбираюсь. По этой фотографии можно понять, какая тут почва? Что мне ещё посмотреть?\n\nЭто Ленинградская область, Карельский перешеек. На месте сосновый лес. Привозили ли сюда землю, я не знаю. На фото сверху тёмная полоска, под ней светлая, а ниже рыжеватая земля. На ощупь не проверял, анализов нет.",
+    "reference_group": "Podzol",
+    "source_url": "https://commons.wikimedia.org/wiki/File:Podzols.JPG",
+    "author": "The original uploader was Michaila vnuk at Ukrainian Wikipedia.",
+    "license": "CC BY-SA 3.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/3.0",
+    "preprocessing": "The prepared JPEG from the previous live test; the soil and colours were not edited."
+  },
+  {
+    "id": 2,
+    "image": "case-02.jpg",
+    "sha256": "9b9fb58aab8f5b6d7981f6caca69634d4aa104ae0c0908086dbf308908df9dfe",
+    "question": "Здравствуйте! Я в почвах не разбираюсь. Вот фото земли. Помогите понять, какая это почва и что ещё нужно узнать. Только простыми словами, пожалуйста.\n\nФото из Канады, точнее место не знаю. Верхний слой тёмный и довольно толстый, дальше светлее. Землю в руках не проверял, анализов нет. Если чего-то на снимке не видно, я этого не знаю.",
+    "reference_group": "Chernozem",
+    "source_url": "https://commons.wikimedia.org/wiki/File:Chernozemic_Soil_Order.jpg",
+    "author": "Virtual Soil Science Learning Resources",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "preprocessing": "Обрезаны верхние и нижние 6% рамки монолита, чтобы убрать таблички; цвет и почвенный профиль не редактировались."
+  },
+  {
+    "id": 6,
+    "image": "case-06.jpg",
+    "sha256": "d54e276ebc54fbc12cedab184c257bced40de5d5d69c9c27b9e57204483b1ed8",
+    "question": "Здравствуйте! Я в почвах не разбираюсь. Вот фото земли. Помогите понять, какая это почва и что ещё нужно узнать. Только простыми словами, пожалуйста.\n\nМесто точно не знаю. На фото земля очень тёмная, много травы и корней, в выемке видна вода. Толщину точно измерить не могу, анализов нет. Никаких тестов руками пока не делал.",
+    "reference_group": "Histosol",
+    "source_url": "https://commons.wikimedia.org/wiki/File:F29026.jpg",
+    "author": "Berthier L.",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "preprocessing": "The prepared JPEG from the previous live test; the soil and colours were not edited."
+  },
+  {
+    "id": 7,
+    "image": "case-07.jpg",
+    "sha256": "c0b4ce4c5ebf80e0d6716261f54f04c2403e6a5205ce20c7ede4018309f86cdd",
+    "question": "Это новый участок в Китае, более точное место я не знаю. Помогите понять почву по фотографии простыми словами.\n\nУ меня только эта фотография. Внутри видна белая полоса, сверху и снизу земля коричневая. Откуда взялась белая полоса, не знаю. Солёность, состав, влажность и растительность не проверял, анализов нет.",
+    "reference_group": "Solonchak",
+    "source_url": "https://commons.wikimedia.org/wiki/File:ISRIC_monolith_CN-014.jpg",
+    "author": "Kauffman JH",
+    "license": "CC BY-SA 3.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/3.0",
+    "preprocessing": "The prepared JPEG from the previous live test; the soil and colours were not edited."
+  },
+  {
+    "id": 8,
+    "image": "case-08.jpg",
+    "sha256": "3fc39f70bfaea6af88735f83bf2fedbbc1a246f461100cef10a724a04060fb9b",
+    "question": "Здравствуйте! Я в почвах не разбираюсь. Вот фото земли. Помогите понять, какая это почва и что ещё нужно узнать. Только простыми словами, пожалуйста.\n\nМесто неизвестно, у меня только это фото. Земля буроватая, видны вертикальные трещинки и плотные кусочки. Про влажность и растительность ничего достоверно не знаю, анализов нет. По одному цвету я не понимаю, что это.",
+    "reference_group": "Solonetz",
+    "source_url": "https://commons.wikimedia.org/wiki/File:Solonetz.jpg",
+    "author": "Bijltjespad",
+    "license": "CC BY-SA 3.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/3.0",
+    "preprocessing": "The prepared JPEG from the previous live test; the soil and colours were not edited."
+  }
+]

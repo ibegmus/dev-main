@@ -1,0 +1,108 @@
+/* Shared catalog and specimen pages. Photographs retain their full proportions. */
+:root { --soil-green: #365e4d; --soil-ink: #293b32; --soil-muted: #626f67; --soil-line: #e3e9e3; }
+[hidden] { display: none !important; }
+html { scroll-padding-top: 24px; }
+.nav-item { text-decoration: none; }
+.main-content { min-width: 0; }
+.catalog-section { margin-bottom: 48px; scroll-margin-top: 24px; }
+.catalog-heading { display: flex; align-items: end; justify-content: space-between; gap: 24px; margin-bottom: 28px; }
+.catalog-eyebrow { font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--soil-green); margin: 0 0 10px; line-height: 1.6; }
+.catalog-heading h2 { font-size: 28px; letter-spacing: -.04em; margin-bottom: 10px; color: var(--soil-ink); }
+.catalog-heading p:not(.catalog-eyebrow) { font-size: 14px; line-height: 1.6; color: var(--soil-muted); }
+.catalog-download { color: var(--soil-green); font-size: 13px; text-underline-offset: 4px; white-space: nowrap; padding: 8px 0; }
+.catalog-controls { display: flex; align-items: end; gap: 12px; padding: 20px; background: #f0f4ef; border: 1px solid var(--soil-line); border-radius: 16px; }
+.catalog-controls label { display: flex; flex: 1; flex-direction: column; gap: 8px; min-width: 0; font-size: 12px; font-weight: 600; color: var(--soil-green); }
+.catalog-controls .catalog-search { flex: 1.6; }
+.catalog-controls input, .catalog-controls select { width: 100%; height: 46px; min-width: 0; background: white; border: 1px solid #d7dfd6; border-radius: 9px; padding: 0 12px; font: inherit; font-size: 14px; color: var(--soil-ink); }
+.catalog-reset, #catalog-more { font: inherit; font-size: 14px; cursor: pointer; border: 1px solid #c8d6cc; background: white; color: var(--soil-green); border-radius: 9px; padding: 13px 18px; min-height: 46px; }
+.catalog-count { margin: 20px 0 16px; font-size: 12px; color: var(--soil-muted); }
+.catalog-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
+.soil-card { display: grid; grid-template-columns: 88px minmax(0, 1fr); text-decoration: none; background: white; border: 1px solid var(--soil-line); border-radius: 15px; overflow: hidden; color: var(--soil-ink); transition: border-color .2s, box-shadow .2s; }
+.soil-card:hover { border-color: #a9c0af; box-shadow: 0 5px 20px #2940320c; }
+.soil-image { position: relative; padding: 24px 10px 38px; background: #eeeee6; display: flex; align-items: center; justify-content: center; min-height: 310px; }
+.soil-image img { display: block; height: 250px; width: 100%; object-fit: contain; }
+.specimen-number { position: absolute; bottom: 14px; font-size: 11px; letter-spacing: .1em; color: #6e7466; }
+.soil-content { display: flex; flex-direction: column; padding: 22px 18px 18px; }
+.soil-family { font-size: 10px; text-transform: uppercase; letter-spacing: .07em; line-height: 1.6; color: var(--soil-muted); margin-bottom: 10px; }
+.soil-content h3 { font-size: 16px; line-height: 1.4; font-weight: 600; margin: 0 0 10px; overflow-wrap: anywhere; }
+.soil-content p { font-size: 12px; line-height: 1.65; color: var(--soil-muted); margin: 0 0 16px; }
+.soil-highlights { display: flex; flex-wrap: wrap; gap: 10px 18px; font-size: 10px; color: var(--soil-muted); margin-top: auto; padding-top: 5px; }
+.soil-highlights strong { display: block; font-size: 13px; line-height: 1.6; font-weight: 600; color: var(--soil-ink); }
+.soil-open { display: flex; justify-content: space-between; margin-top: 18px; padding-top: 13px; border-top: 1px solid #eef0ea; font-size: 12px; color: var(--soil-green); }
+.review-badge { display: inline-block; align-self: start; font-size: 11px; padding: 5px 8px; border-radius: 5px; background: #f8eedc; color: #73572c; margin-bottom: 12px; }
+.catalog-empty { text-align: center; padding: 36px 16px; color: var(--soil-muted); line-height: 1.7; }
+.catalog-more { text-align: center; margin-top: 24px; }
+#catalog-more { min-width: 220px; background: var(--soil-green); color: white; border-color: var(--soil-green); }
+.catalog-section :focus-visible, .soil-detail-page :focus-visible { outline: 3px solid #739b80; outline-offset: 4px; }
+#ai-chat { scroll-margin-top: 24px; }
+/* Standalone pages use system fonts and require no external services. */
+.soil-detail-page { margin: 0; background: #fafbf8; color: var(--soil-ink); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; line-height: 1.7; }
+.soil-detail-page * { box-sizing: border-box; }
+.soil-detail-page a { color: var(--soil-green); text-underline-offset: 4px; }
+.detail-topbar { display: flex; align-items: center; justify-content: space-between; gap: 16px; max-width: 1280px; margin: auto; padding: 24px 40px; border-bottom: 1px solid var(--soil-line); }
+.detail-brand { font-size: 22px; font-weight: 700; letter-spacing: -.04em; text-decoration: none; line-height: 1.4; }
+.detail-brand span { display: block; font-size: 10px; font-weight: 400; letter-spacing: .08em; text-transform: uppercase; color: var(--soil-muted); }
+.detail-topbar nav { display: flex; gap: 28px; font-size: 13px; }
+.detail-topbar nav a { text-decoration: none; }
+.detail-main { max-width: 1140px; margin: auto; padding: 32px 40px 64px; }
+.back-link { font-size: 13px; text-decoration: none; }
+.detail-heading { margin: 36px 0; max-width: 850px; }
+.detail-heading .catalog-eyebrow span { color: #829285; }
+.detail-heading h1 { font-size: clamp(26px, 3.6vw, 42px); letter-spacing: -.04em; font-weight: 600; line-height: 1.2; margin: 12px 0 18px; overflow-wrap: anywhere; }
+.detail-heading > p:last-child { color: var(--soil-muted); font-size: 15px; }
+.detail-layout { display: grid; grid-template-columns: minmax(220px, 300px) minmax(0, 1fr); gap: 48px; align-items: start; }
+.detail-gallery { min-width: 0; }
+.detail-gallery figure { margin: 0 0 24px; border: 1px solid var(--soil-line); border-radius: 14px; overflow: hidden; background: #eeeee6; }
+.detail-gallery figure a { display: block; padding: 24px; }
+.monolith-figure img { display: block; width: 100%; height: 620px; object-fit: contain; }
+.detail-gallery .label-figure a { padding: 12px; }
+.label-figure img { display: block; width: 100%; height: auto; }
+.detail-gallery figcaption { font-size: 11px; padding: 13px 16px; color: var(--soil-muted); background: #f3f4ed; border-top: 1px solid var(--soil-line); }
+.detail-content { min-width: 0; }
+.detail-section { margin-bottom: 32px; }
+.detail-content h2 { font-size: 20px; font-weight: 600; letter-spacing: -.02em; margin: 0 0 14px; }
+.detail-content p { font-size: 14px; margin: 0 0 14px; }
+.soil-facts { margin: 0; font-size: 13px; }
+.soil-facts > div { display: grid; grid-template-columns: minmax(120px, .85fr) minmax(0, 1fr); gap: 20px; padding: 13px 0; border-bottom: 1px solid var(--soil-line); }
+.soil-facts dt { color: var(--soil-muted); }
+.soil-facts dd { margin: 0; font-weight: 500; overflow-wrap: anywhere; }
+.source-notes { padding: 20px 22px; background: #f7f0e3; border: 1px solid #e9dcc2; border-radius: 12px; margin-bottom: 30px; color: #655437; }
+.source-notes h2 { font-size: 16px; }
+.source-notes p:last-child { margin-bottom: 0; }
+.detail-section table { width: 100%; border-collapse: collapse; font-size: 13px; text-align: left; }
+.detail-section caption { text-align: left; color: var(--soil-muted); padding: 0 0 12px; }
+.detail-section th, .detail-section td { padding: 10px 14px; border-bottom: 1px solid var(--soil-line); }
+.detail-section thead { background: #edf2eb; }
+.detail-section tbody th { font-weight: 500; }
+.source-details { border-top: 1px solid var(--soil-line); padding: 16px 0; font-size: 13px; }
+.source-details summary { cursor: pointer; font-weight: 600; color: var(--soil-green); }
+.source-details p:first-of-type { margin-top: 16px; }
+.source-details code { font-size: 11px; overflow-wrap: anywhere; }
+.specimen-navigation { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; border-top: 1px solid var(--soil-line); margin-top: 48px; padding-top: 26px; font-size: 13px; }
+.specimen-navigation a { text-decoration: none; }
+.specimen-navigation > :last-child { text-align: right; }
+.specimen-navigation small { display: block; color: var(--soil-muted); }
+.detail-footer { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; max-width: 1280px; margin: auto; padding: 24px 40px; border-top: 1px solid var(--soil-line); color: var(--soil-muted); font-size: 12px; }
+@media (max-width: 1000px) { .catalog-heading { align-items: start; flex-direction: column; gap: 10px; } .catalog-controls { flex-wrap: wrap; } .catalog-search { flex-basis: 100% !important; } .detail-layout { gap: 28px; grid-template-columns: minmax(180px, 240px) minmax(0, 1fr); } }
+@media (max-width: 640px) {
+  .catalog-grid { grid-template-columns: minmax(0, 1fr); }
+  .catalog-controls { padding: 16px; } .catalog-reset { padding: 12px; }
+  .soil-card { grid-template-columns: 82px minmax(0, 1fr); }
+  .soil-content { padding: 20px 16px; } .soil-image { min-height: 290px; }
+  .catalog-heading h2 { font-size: 26px; }
+  .detail-topbar { padding: 20px; } .detail-topbar nav { gap: 16px; font-size: 12px; }
+  .detail-main { padding: 24px 20px 40px; } .detail-heading { margin: 24px 0; }
+  .detail-layout { display: flex; flex-direction: column; gap: 20px; }
+  .detail-gallery { display: grid; grid-template-columns: 1fr 1.4fr; gap: 12px; width: 100%; align-items: start; }
+  .detail-gallery figure { margin: 0; } .detail-gallery figure a { padding: 12px; }
+  .monolith-figure img { height: 300px; } .detail-gallery figcaption { padding: 10px; font-size: 10px; }
+  .detail-content { width: 100%; } .soil-facts > div { grid-template-columns: 1fr 1fr; gap: 14px; }
+  .source-notes { padding: 18px; } .detail-footer { padding: 24px 20px; }
+  .specimen-navigation { gap: 20px; font-size: 12px; }
+}
+@media (prefers-reduced-motion: reduce) { .soil-card { transition: none; } }
+
+/* Shared filter controls; phone layout is defined in mobile.css. */
+.catalog-filter-panel > summary { display: none; }
+.catalog-mobile-hint { display: none; }
+.catalog-grid:focus-visible { outline: 2px solid #789b80; outline-offset: 5px; }

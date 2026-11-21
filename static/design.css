@@ -1,0 +1,140 @@
+/* Visual language only. mobile.css remains the authority for phone geometry. */
+:root {
+  --design-forest: #284d3e;
+  --design-muted: #5e7066;
+  --design-line: #dfe6dc;
+}
+body { background: #f5f6f0; color: #263d32; }
+::selection { background: #d4e5cd; color: #203e30; }
+.sidebar { background: #fcfdf9; border-color: var(--design-line); }
+.logo-icon { background: var(--design-forest); }
+.nav-item.active { background: #e9efdf; color: #284d3e; }
+.nav-item.active .nav-icon { background: var(--design-forest); }
+.nav-item:hover { background: #eff3e9; }
+.main-content > .header { display: flex; align-items: center; justify-content: space-between; gap: 32px; padding: 36px 40px; border: 1px solid #dce4d4; border-radius: 24px; background: #eaf0e1; }
+.header .hero-eyebrow { color: #49684f; font-size: 11px; letter-spacing: .1em; text-transform: uppercase; margin-bottom: 16px; }
+.header h1 { font-family: inherit; font-weight: 700; font-size: clamp(30px, 3.3vw, 48px); line-height: 1.12; letter-spacing: -.045em; color: #294333; margin-bottom: 18px; }
+.header p { font-size: 14px; line-height: 1.75; color: #536850; }
+.hero-action { display: inline-flex; align-items: center; gap: 22px; margin-top: 24px; min-height: 46px; padding: 12px 18px; border-radius: 10px; background: var(--design-forest); color: white; font-size: 13px; text-decoration: none; }
+.hero-action:hover { background: #183c2e; }
+.hero-profile { flex: 0 0 160px; transform: rotate(3deg); }
+.hero-profile-label, .hero-profile-caption { display: block; font-size: 10px; color: #526348; text-align: center; line-height: 1.6; }
+.hero-profile-label { margin-bottom: 12px; letter-spacing: .08em; text-transform: uppercase; }
+.hero-profile-caption { margin-top: 12px; }
+.catalog-heading h2, .chat-header h2 { font-family: inherit; letter-spacing: -.035em; font-weight: 700; }
+.catalog-controls { background: #eef1e8; border-color: var(--design-line); }
+.soil-card { border-color: var(--design-line); box-shadow: 0 3px 10px #213c2904; }
+.soil-image { background: #edeadd; }
+.soil-family { color: #48694d; }
+.soil-open { color: #315d42; }
+.chat-section { border-color: var(--design-line); box-shadow: 0 8px 32px #263d3206; }
+.chat-window { background: #f5f6f0; scrollbar-width: thin; scrollbar-color: #c7d4c3 transparent; }
+.message.ai { border-color: #e2e8dc; border-radius: 4px 18px 18px; }
+.message.user { background: var(--design-forest); border-radius: 18px 4px 18px 18px; }
+.input-area { background: #fff; border-color: #cbd8c7; }
+#send-btn, .account-primary, #catalog-more { background: var(--design-forest); }
+#send-btn:hover:not(:disabled), .account-primary:hover, #catalog-more:hover { background: #193c2e; }
+.quick-btn { background: #eef2e7; color: #38533e; }
+.quick-btn:hover { background: #dce8d2; color: #28432d; }
+.account-bar { background: #f0f4e9; border-color: #dce5d5; }
+.account-dialog { background: #fdfef9; }
+.auth-tabs { background: #edf1e5; }
+.site-footer { border-top: 1px solid var(--design-line); padding-top: 16px; }
+:where(a, button, summary):focus-visible { outline: 3px solid #789b69; outline-offset: 4px; }
+/* Centre the entire desktop composition, leaving balanced forest margins. */
+@media (min-width: 1025px) {
+  body {
+    display: block;
+    background: #243e32 url('/images/design/forest.jpg') center / cover fixed no-repeat;
+  }
+  .sidebar {
+    position: relative;
+    top: auto;
+    left: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    width: min(1320px, calc(100% - 64px));
+    height: auto;
+    margin: 24px auto 16px;
+    padding: 16px 24px;
+    border: 1px solid #ffffff65;
+    border-radius: 20px;
+    background: #fcfdf9f5;
+    box-shadow: 0 8px 32px #122c2426;
+    overflow: visible;
+  }
+  .sidebar .logo { margin: 0; flex-shrink: 0; }
+  .sidebar .nav-menu { flex-direction: row; gap: 4px; }
+  .sidebar .nav-item { padding: 8px 12px; gap: 8px; font-size: 13px; }
+  .sidebar .nav-icon { width: 30px; height: 30px; flex-shrink: 0; }
+  .main-content {
+    width: min(1320px, calc(100% - 64px));
+    max-width: 1320px;
+    margin: 0 auto 24px;
+    padding: 24px;
+    border: 1px solid #ffffff70;
+    border-radius: 24px;
+    background: #f6f7f1;
+    box-shadow: 0 12px 60px #10291e38;
+  }
+  .main-content > .header {
+    min-height: 300px;
+    margin-bottom: 28px;
+    padding: 30px 36px;
+    background: linear-gradient(90deg, #eaf0e1 0%, #eaf0e1 42%, #eaf0e1dd 52%, #eaf0e100 72%), url('/images/design/forest.jpg') center 55% / cover;
+    border: 0;
+    overflow: hidden;
+  }
+  .header h1 { font-size: clamp(32px, 3vw, 44px); }
+  .hero-profile { display: flex; align-self: stretch; justify-content: end; flex-direction: column; flex-basis: 30%; transform: none; }
+  .hero-profile-label { color: white; font-size: 20px; text-transform: none; letter-spacing: -.03em; text-align: right; margin-bottom: 4px; text-shadow: 0 1px 8px #10291e; }
+  .hero-profile-caption { color: #f0f4e9; text-align: right; margin: 0; text-shadow: 0 1px 8px #10291e; }
+  .chat-section { padding: 28px; }
+  .message { max-width: 85%; }
+  .catalog-section { margin-bottom: 32px; }
+  .catalog-heading { margin-bottom: 20px; }
+  .catalog-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+  .soil-image { min-height: 270px; }
+  .soil-image img { height: 220px; }
+}
+@media (min-width: 1025px) and (max-width: 1200px) {
+  .sidebar .nav-icon { display: none; }
+  .sidebar .nav-item { padding: 12px 10px; }
+  .catalog-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .soil-card { transition: border-color .2s, box-shadow .2s, transform .2s; }
+  .soil-card:hover { transform: translateY(-3px); box-shadow: 0 10px 24px #203f3010; border-color: #9db691; }
+}
+@media (max-width: 1024px) {
+  .hero-profile { display: none; }
+  .hero-break { display: none; }
+  .main-content > .header { padding: 24px; }
+}
+
+:root { --scene: url('/images/design/forest.jpg'); }
+:root[data-scene=field] { --scene: url('/images/design/field.jpg'); }
+:root[data-scene=plain] { --scene: none; }
+.theme-picker { display: flex; align-items: center; gap: 6px; font-size: 11px; color: #31553e; flex-shrink: 0; }
+.theme-picker select { min-height: 40px; max-width: 115px; border: 1px solid #cbd8c7; border-radius: 9px; background: #f6f8ef; color: #284d3e; padding: 6px; font: inherit; font-size: 13px; }
+@media (min-width: 1025px) {
+  body { background-image: var(--scene); }
+  .main-content > .header { background-image: linear-gradient(90deg, #eaf0e1 0%, #eaf0e1 42%, #eaf0e1dd 52%, #eaf0e100 72%), var(--scene); }
+  .sidebar { gap: 12px; }
+  .sidebar .nav-item { padding-inline: 8px; }
+  .sidebar .nav-icon { display: none; }
+  [data-scene=plain] .hero-profile { visibility: hidden; }
+}
+@media (max-width: 1024px) {
+  .mobile-brandbar .theme-picker { margin-left: auto; font-size: 0; order: 1; }
+  .mobile-brandbar .burger-menu { order: 2; }
+  .sidebar > .theme-picker { margin-top: 24px; }
+  [data-scene=field] body, [data-scene=field] .chat-window { background: #f6f1e5; }
+  [data-scene=field] .mobile-section-nav { background: #eee5ce; }
+}
+@media (max-width: 360px) {
+  .mobile-brandbar { gap: 8px; }
+  .theme-picker select { max-width: 94px; }
+}
