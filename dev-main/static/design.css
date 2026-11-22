@@ -161,16 +161,7 @@ body { background: #f5f6f0; color: #263d32; }
   border: 1px solid #b9c8b0;
 }
 .hero-action--ghost:hover { background: #dfe8d4; }
-.mobile-brand::before {
-  content: "";
-  display: inline-block;
-  width: 32px;
-  height: 32px;
-  margin-right: 8px;
-  background: url('/images/design/logo.png') center / cover no-repeat;
-  border-radius: 8px;
-  vertical-align: -7px;
-}
+.mobile-brand .tm-logo { vertical-align: middle; }
 .auth-brand-mark {
   display: block;
   width: 42px;
@@ -213,42 +204,82 @@ html:has(.welcome-screen:not(.is-hidden)) { overflow: hidden; }
 .welcome-panel {
   position: relative;
   z-index: 1;
-  width: min(760px, calc(100vw - 32px));
+  width: min(980px, calc(100vw - 32px));
   max-height: calc(100vh - 32px);
   max-height: calc(100dvh - 32px);
   overflow: auto;
-  padding: clamp(24px, 5vw, 48px);
-  border: 1px solid rgba(255, 255, 255, .18);
-  border-radius: 24px;
-  background: rgba(24, 36, 29, .58);
+  padding: clamp(28px, 6vw, 64px) clamp(18px, 4vw, 48px);
   color: #f4f6ef;
   text-align: center;
-  box-shadow: 0 24px 90px rgba(8, 18, 13, .38);
-  backdrop-filter: blur(10px);
 }
-.welcome-brand {
-  display: flex;
+.welcome-logo { margin-bottom: 14px; }
+.tm-logo {
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 12px;
-  margin-bottom: 28px;
-  font-size: 20px;
-  font-weight: 700;
-  letter-spacing: -.02em;
+  gap: .06em;
+  font-family: 'PFBaselinePro', 'Geoform', sans-serif;
+  font-size: clamp(58px, 10vw, 128px);
+  font-weight: 500;
+  letter-spacing: -.05em;
+  line-height: .9;
 }
-.welcome-brand img {
-  width: 46px;
-  height: 46px;
-  object-fit: cover;
-  border-radius: 14px;
+.tm-logo__word {
+  font-size: 1em;
+  color: #e6f5ec;
+  text-transform: lowercase;
 }
-.welcome-brand small {
-  display: block;
-  margin-top: 3px;
-  font-size: 11px;
+.tm-logo__atom {
+  height: .8em;
+  width: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 10px 22px rgba(4, 18, 12, .35));
+}
+.tm-ai {
+  margin-top: .5em;
+  font-family: 'PFBaselinePro', 'Geoform', sans-serif;
+  font-size: clamp(18px, 2.2vw, 26px);
   font-weight: 400;
   letter-spacing: .04em;
-  color: rgba(244, 246, 239, .68);
+  color: rgba(230, 245, 236, .9);
+}
+.tm-logo--sm { font-size: 24px; }
+.tm-logo--sm .tm-logo__word { color: #294333; }
+.tm-logo--sm .tm-logo__atom { height: 27px; filter: drop-shadow(0 4px 8px rgba(30, 60, 40, .22)); }
+.tm-logo--xs { font-size: 18px; }
+.tm-logo--xs .tm-logo__word { color: #31543e; }
+.tm-logo--xs .tm-logo__atom { height: 21px; filter: none; }
+.logo-fly {
+  position: fixed;
+  z-index: 400;
+  margin: 0;
+  pointer-events: none;
+  transform-origin: center;
+  will-change: transform, opacity;
+}
+.tm-logo.logo-landed .tm-logo__word,
+.tm-logo.logo-landed .tm-logo__atom { animation: tmLogoLand .9s ease; }
+@keyframes tmLogoLand {
+  0% { filter: drop-shadow(0 0 0 rgba(120, 220, 170, 0)); }
+  35% { filter: drop-shadow(0 0 14px rgba(140, 230, 180, .75)); }
+  100% { filter: drop-shadow(0 0 0 rgba(120, 220, 170, 0)); }
+}
+.welcome-screen.is-leaving .welcome-shade {
+  background: radial-gradient(circle at 50% 44%, rgba(220, 255, 235, .16), rgba(18, 30, 24, .28) 58%, rgba(18, 30, 24, .64));
+  transition: background .3s ease;
+}
+.welcome-screen.is-leaving .welcome-logo .tm-logo {
+  transform: scale(1.035);
+  filter: drop-shadow(0 0 18px rgba(190, 255, 215, .6)) drop-shadow(0 0 48px rgba(110, 220, 170, .32));
+  transition: transform .3s ease, filter .3s ease;
+}
+.welcome-screen.is-leaving .tm-ai,
+.welcome-screen.is-leaving .dokuchaev-quote,
+.welcome-screen.is-leaving .welcome-actions {
+  opacity: 0;
+  transform: translateY(12px);
+  filter: blur(8px);
+  transition: opacity .28s ease, transform .28s ease, filter .28s ease;
 }
 .dokuchaev-quote {
   margin: 0 auto 30px;
@@ -286,12 +317,12 @@ html:has(.welcome-screen:not(.is-hidden)) { overflow: hidden; }
   cursor: pointer;
 }
 .welcome-primary {
-  border: 0;
-  background: #e9f0df;
-  color: #294333;
+  border: 1px solid rgba(255, 255, 255, .7);
+  background: #ffffff;
+  color: #1f5138;
   font-weight: 700;
 }
-.welcome-primary:hover { background: #ffffff; }
+.welcome-primary:hover { background: #dff0e4; }
 .welcome-secondary {
   border: 1px solid rgba(255, 255, 255, .42);
   background: rgba(255, 255, 255, .08);
@@ -304,9 +335,8 @@ html:has(.welcome-screen:not(.is-hidden)) { overflow: hidden; }
   outline-offset: 3px;
 }
 @media (max-width: 640px) {
-  .welcome-panel { padding: 22px 18px; border-radius: 18px; }
-  .welcome-brand { margin-bottom: 20px; font-size: 17px; }
-  .welcome-brand img { width: 38px; height: 38px; }
+  .welcome-panel { padding: 22px 18px; }
+  .tm-ai { font-size: 17px; }
   .dokuchaev-quote p { font-size: 19px; line-height: 1.35; }
   .welcome-actions { flex-direction: column; }
   .welcome-primary,
@@ -314,4 +344,10 @@ html:has(.welcome-screen:not(.is-hidden)) { overflow: hidden; }
 }
 @media (prefers-reduced-motion: reduce) {
   .welcome-media video { display: none; }
+  .welcome-screen.is-leaving .welcome-logo .tm-logo,
+  .welcome-screen.is-leaving .tm-ai,
+  .welcome-screen.is-leaving .dokuchaev-quote,
+  .welcome-screen.is-leaving .welcome-actions { transition: none; }
+  .tm-logo.logo-landed .tm-logo__word,
+  .tm-logo.logo-landed .tm-logo__atom { animation: none; }
 }
