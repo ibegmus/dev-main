@@ -656,13 +656,13 @@
       }
     }
   </style>
-  <script src="/themes.js?v=20261122b"></script>
-  <link rel="stylesheet" href="/catalog.css?v=20261122b">
-  <link rel="stylesheet" href="/chat.css?v=20261122b">
-  <link rel="stylesheet" href="/design.css?v=20261122b">
-  <link rel="stylesheet" href="/mobile.css?v=20261122b">
-  <script src="/mobile.js?v=20261122b" defer></script>
-  <script src="/catalog.js?v=20261122b" defer></script>
+  <script src="/themes.js?v=20261122c"></script>
+  <link rel="stylesheet" href="/catalog.css?v=20261122c">
+  <link rel="stylesheet" href="/chat.css?v=20261122c">
+  <link rel="stylesheet" href="/design.css?v=20261122c">
+  <link rel="stylesheet" href="/mobile.css?v=20261122c">
+  <script src="/mobile.js?v=20261122c" defer></script>
+  <script src="/catalog.js?v=20261122c" defer></script>
 </head>
 <body>
 
@@ -676,11 +676,7 @@
     <div class="welcome-shade"></div>
     <div class="welcome-panel">
       <div class="welcome-logo" id="welcome-logo">
-        <div class="tm-logo" role="img" aria-label="TerraMind">
-          <span class="tm-logo__word">terra</span>
-          <img class="tm-logo__atom" src="/images/design/atom.svg" alt="" aria-hidden="true">
-          <span class="tm-logo__word">mind</span>
-        </div>
+        <img class="brand-logo brand-logo--welcome" src="/images/design/logo.png" alt="TerraMind">
         <div class="tm-ai">{AI}</div>
       </div>
       <blockquote class="dokuchaev-quote">
@@ -694,7 +690,7 @@
   </div>
 
   <header class="mobile-shell" aria-label="TerraMind">
-    <div class="mobile-brandbar"><a class="mobile-brand" href="/" aria-label="TerraMind"><span class="tm-logo tm-logo--xs" role="img" aria-label="TerraMind"><span class="tm-logo__word">terra</span><img class="tm-logo__atom" src="/images/design/atom.svg" alt="" aria-hidden="true"><span class="tm-logo__word">mind</span></span></a>
+    <div class="mobile-brandbar"><a class="mobile-brand" href="/" aria-label="TerraMind"><img class="brand-logo brand-logo--xs" src="/images/design/logo.png" alt="TerraMind"></a>
     <button class="burger-menu" id="burger-menu" type="button" aria-label="Открыть меню" aria-expanded="false" aria-controls="sidebar"><span></span><span></span><span></span></button></div>
     <nav class="mobile-section-nav" aria-label="Разделы сайта">
       <a class="mobile-chat-link" href="#ai-chat">ИИ-чат</a>
@@ -706,7 +702,7 @@
 
   <div class="sidebar" id="sidebar">
     <div class="logo">
-      <span class="tm-logo tm-logo--sm" role="img" aria-label="TerraMind"><span class="tm-logo__word">terra</span><img class="tm-logo__atom" src="/images/design/atom.svg" alt="" aria-hidden="true"><span class="tm-logo__word">mind</span></span>
+      <img class="brand-logo brand-logo--sm" src="/images/design/logo.png" alt="TerraMind">
     </div>
     
     <div class="nav-menu">
@@ -1212,6 +1208,6 @@
   </dialog>
   <dialog id="account-delete-dialog" class="account-dialog" aria-labelledby="account-delete-title"><button type="button" id="close-account-delete" class="dialog-close" aria-label="Закрыть окно удаления">×</button><h2 id="account-delete-title">Удалить аккаунт?</h2><p>Ваш аккаунт и сохранённые беседы будут удалены. Восстановить их не получится.</p><form id="account-delete-form"><label>Подтвердите своим паролем<input type="password" id="account-delete-password" autocomplete="current-password" maxlength="128" required></label><p id="account-delete-error" role="alert" class="auth-error"></p><button id="account-delete-submit" class="account-danger" type="submit">Удалить аккаунт и беседы</button></form></dialog>
   <dialog id="feedback-admin-dialog" class="account-dialog" aria-labelledby="feedback-admin-title"><button type="button" id="close-feedback-admin" class="dialog-close" aria-label="Закрыть отзывы">×</button><h2 id="feedback-admin-title">Отзывы об ИИ</h2><p>Последние 50 отзывов. Видны только администраторам.</p><div id="feedback-admin-list"></div></dialog>
-  <script src="/chat.js?v=20261122b" defer></script>
+  <script src="/chat.js?v=20261122c" defer></script>
 </body>
 </html>

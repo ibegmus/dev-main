@@ -253,8 +253,8 @@
       return clone;
     };
     const startWelcome=()=>{
-      const logo=document.querySelector('#welcome-logo .tm-logo');
-      const targets=[...document.querySelectorAll('.mobile-brand .tm-logo, .sidebar .logo .tm-logo')];
+      const logo=document.querySelector('#welcome-logo .brand-logo');
+      const targets=[...document.querySelectorAll('.mobile-brand .brand-logo, .sidebar .logo .brand-logo')];
       const target=targets.find(el=>el.getBoundingClientRect().width>0);
       if(reduceMotion||!logo||!target){closeWelcome();window.scrollTo({top:0,behavior:'auto'});return;}
       welcomeScreen.classList.add('is-leaving');
